@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<stream>
+
+<iptv>
+	<name>Euronews by DailyMotion</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>www.dailymotion.com/video/xfwk7k_euronews_news</uri>
+</iptv>
+
+<iptv>
+	<name>Euronews (auto lang)</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>euronews.com</uri>
+</iptv>
+
+<iptv>
+	<name>Euronews in French</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>fr.euronews.com</uri>
+</iptv>
+
+<iptv>
+	<name>Euronews in Turkish</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>tr.euronews.com</uri>
+</iptv>
+
+<iptv>
+	<name>Al Jazzera</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>http://www.livestation.com/en/aljazeera-arabic</uri>
+</iptv>
+
+<iptv>
+	<name>France24</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>www.dailymotion.com/video/xgbkjz_france24_news</uri>
+</iptv>
+
+<iptv>
+	<name>Fox News</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>http://www.ilive.to/view/46465</uri>
+</iptv>
+
+<iptv>
+	<name>CNN</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>http://www.ilive.to/view/46461</uri>
+</iptv>
+
+<iptv>
+	<name>Sky TG24</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>http://www.owncast.me/channel/1673</uri>
+</iptv>
+
+</stream>

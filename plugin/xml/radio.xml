@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<stream>
+
+<iptv>
+	<name>Athens Dee Jay</name>
+	<icon>radio.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>rtmp://91.132.6.21/tv/rdj_webtv.sdp</uri>
+</iptv>
+
+<iptv>
+	<name>Dromos 89.8 FM</name>
+	<icon>radio.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>rtmp://cp78491.live.edgefcs.net/live/flashlive@13949 swfVfy=http://www.dromosfm.gr/AkamaiFlashPlayer.swf live=1</uri>
+</iptv>
+
+<iptv>
+	<name>Cosmos 92.6 (Kavala)</name>
+	<icon>radio.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>http://www.freedocast.com/cosmos926</uri>
+</iptv>
+
+<iptv>
+	<name>One FM (Athens)</name>
+	<icon>radio.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>http://www.ustream.tv/channel/one-fm---athens-official</uri>
+</iptv>
+
+<iptv>
+	<name>Radio Kalloni</name>
+	<icon>radio.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>www.livestream.com/radiokalloni</uri>
+</iptv>
+
+<iptv>
+        <name>Progressive Rock</name>
+        <icon>radio.png</icon>
+        <type>livestreamer:4097:512</type>
+        <uri>rtmp://iochiwza02.radioio.com/ioflash app=ioflash playpath=ad.64.1054.stream swfUrl=http://www.radioio.com/wp-content/plugins/radioio-channels/jwplayer/player.swf pageUrl=http://www.radioio.com/channels/Rock/Progressive-Rock</uri>
+</iptv>
+
+<iptv>
+        <name>En Leyko 87.7</name>
+        <icon>radio.png</icon>
+        <type>livestreamer:4097:512</type>
+        <uri>rtmp://cp126784.live.edgefcs.net/live/enlevko@73167 app=live/enlevko@73167 playpath=enlevko@73167 swfUrl=http://enlefko.fm/sites/all/themes/enleyko/flash/EnLefko_RTMPPlayer.swf?1 pageUrl=http://enlefko.fm live=1</uri>
+</iptv>
+
+</stream>

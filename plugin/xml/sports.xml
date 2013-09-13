@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<stream>
+
+<iptv>
+	<name>ESPN HD</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>http://www.ilive.to/view/50476</uri>
+</iptv>
+
+<iptv>
+	<name>NBC Sport Network</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>http://www.ilive.to/view/49251</uri>
+</iptv>
+
+<iptv>                          
+        <name>Red Bull Tv</name>    
+        <icon>default.png</icon>        
+        <type>livestreamer:4097:512</type>
+        <uri>rtmp://cp93704.live.edgefcs.net:443/live/redbull2@21839 live=1</uri>
+</iptv>
+
+</stream>

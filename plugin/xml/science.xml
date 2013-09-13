@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<stream>
+
+<iptv>
+	<name>Nasa Tv</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>http://www.cast3d.tv/channel/nasatv</uri>
+</iptv>
+
+<iptv>
+	<name>Intelligence</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>http://www.livestation.com/en/intelligence-squared</uri>
+</iptv>
+
+<iptv>
+	<name>Unhcr</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>http://www.livestation.com/en/unhcr</uri>
+</iptv>
+
+<iptv>
+	<name>BBC</name>
+	<icon>default.png</icon>
+	<type>livestreamer:1:512</type>
+	<uri>http://veetle.com/index.php/channel/view#4dc502e50341e</uri>
+</iptv>
+
+</stream>
