@@ -18,7 +18,7 @@ def menu(menuid, **kwargs):
 
 def main(session, **kwargs):
     try:
-        session.open(PluginMenu)
+        session.open(GSMenu)
     except:
         print "[GreekStreamTV] Pluginexecution failed"
 
@@ -36,7 +36,7 @@ def Plugins(**kwargs):
             icon="plugin.png",
             fnc=main)]
 
-class PluginMenu(Screen):
+class GSMenu(Screen):
     skin = """
 		<screen name="GreekStreamTVList" position="center,center" size="280,220" title="GreekStreamTV">
 			<widget name="menu" itemHeight="35" position="0,0" size="270,140" scrollbarMode="showOnDemand" transparent="1" zPosition="9"/>
