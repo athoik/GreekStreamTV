@@ -388,13 +388,6 @@
 <!-- WEB -->
 
 <iptv>
-	<name>[Web] TOM AND JERRY</name>
-	<icon>web.png</icon>
-	<type>livestreamer:4097:512</type>
-	<uri>rtmp://204.45.66.154/ctv swfVfy=http://www.canaistv.net/swf/player.swf pageUrl=http://www.canaistv.net/tvamigos/tomejerry.html playpath=tom</uri>
-</iptv>
-
-<iptv>
 	<name>[Web] BetAnalysis</name>
 	<icon>web.png</icon>
 	<type>livestreamer:4097:512</type>
@@ -702,10 +695,38 @@
 </iptv>
 
 <iptv>
-	<name>! X</name>
+	<name>[Gr] E Channel</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>rtmp://213.16.167.187:1935/live/mpegts_256.stream live=1 timeout=10</uri>
+</iptv>
+
+<iptv>
+	<name>[Gr] E Channel</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512</type>
+	<uri>rtmp://94.102.58.45:80/kanali10/kanali10.sdp pageUrl=http://kanalia.eu/alpha_original.php live=1 timeout=10</uri>
+</iptv>
+
+<iptv>
+	<name>[Gr WMV] Makedonia Tv</name>
 	<icon>default.png</icon>
 	<type>http:4097:512</type>
-	<uri>mms://galaxy.live24.gr/galaxy9292</uri>
+	<uri>mms://206.222.31.146/et31?sid=00000000-0000-0000-0000-000000000000-00-000000</uri>
+</iptv>
+
+<iptv>
+	<name>[Gr WMV] Vouli</name>
+	<icon>default.png</icon>
+	<type>http:4097:512</type>
+	<uri>mms://media19.internet.gr/ParliamentTV-HQ</uri>
+</iptv>
+
+<iptv>
+        <name>[Gr] Skai {hls}</name>
+        <icon>default.png</icon>
+        <type>livestreamer:4097:512</type>
+        <uri>hlsvariant://http://skaihdn2-f.akamaihd.net/i/geo_2@86985/master.m3u8</uri>
 </iptv>
 
 </stream>
