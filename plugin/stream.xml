@@ -1,44 +1,329 @@
 <?xml version="1.0"?>
 <stream>
+<!-- Mega id 1000 -->	
+<iptv>
+	<name>Mega TV {hls}</name>
+	<icon>default.png</icon>
+	<type>http:4097:512:1000</type>
+	<uri>http://megahdlive1-f.akamaihd.net/i/live_1@105260/master.m3u8</uri>
+</iptv>	
+	
+<iptv>
+	<name>Mega TV {rtmp}</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1000</type>
+	<uri>rtmp://46.21.146.45:80/megaweb/megaweb.sdp pageUrl=http://kanalia.eu/mega_channel_original.php</uri>
+</iptv>	
+	
+<!-- ANT1 id 1001 -->	
+<iptv>
+	<name>ANT1 {hls}</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1001</type>
+	<uri>hlsvariant://http://wow.ant1.gr:1935/live/smil:valonitv1ant.smil/playlist.m3u8</uri>
+</iptv>
 
 <iptv>
-	<name>4E TV {rtmp}</name>
+	<name>ANT1 {rtmp}</name>
 	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://82.192.84.30:1935/live/myStream.sdp</uri>
+	<type>livestreamer:4097:512:1001</type>
+	<uri>rtmp://tmplive.ant1.gr/live app=live swfUrl=http://static.ant1.gr/live.ashx pageUrl=http://www.antenna.gr/webtv/live playpath=valonitv1ant swfhash=96b7a9b413fbf26da0ed3a84e22c3b2a0bbb80d5f6e2a6dd02b578f7faad57f4 swfsize=312201 live=1 timeout=10</uri>
 </iptv>
+	
+<!-- STAR id 1002 -->	
+<iptv>
+	<name>Star Channel</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1002</type>
+	<uri>rtmp://94.102.58.45:80/alterweb/alterweb.sdp pageUrl=http://kanalia.eu/star_original.php</uri>
+</iptv>
+
+<iptv>
+	<name>Star Channel</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1002</type>
+	<uri>rtmp://46.21.146.45:80/alterweb/alterweb.sdp pageUrl=http://kanalia.eu/star_original.php</uri>
+</iptv>	
+	
+<!-- ALPHA id 1003 -->
+<iptv>
+	<name>Alpha {hls}</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1003</type>
+	<uri>hlsvariant://http://alfakanali-lh.akamaihd.net/i/live_1@90368/master.m3u8</uri>
+</iptv>
+
+<iptv>
+        <name>Alpha {hds}</name>
+        <icon>default.png</icon>
+        <type>livestreamer:4097:512:1003</type>
+        <uri>hds://http://alfakanali-lh.akamaihd.net/z/live_1@90368/manifest.f4m</uri>
+</iptv>
+
+<!-- SKAI id 1004 -->
+<iptv>
+        <name>Skai</name>
+        <icon>default.png</icon>
+        <type>livestreamer:4097:512:1004</type>
+        <uri>youtube.com/watch?v=XvKIgSVWeOE</uri>
+</iptv>
+
+<iptv>
+        <name>Skai {hls}</name>
+        <icon>default.png</icon>
+        <type>livestreamer:4097:512:1004</type>
+        <uri>hlsvariant://http://skaihdn2-f.akamaihd.net/i/geo_2@86985/master.m3u8</uri>
+</iptv>
+
+<!-- ACTION id 1005 -->
+<iptv>
+	<name>Action24 {rtmp}</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1005</type>
+	<uri>rtmp://srv1.viiideo.gr/videon/action24 live=1</uri>
+</iptv>
+
+<!-- VOULI id 1007 -->
+<iptv>
+	<name>Vouli {wmv}</name>
+	<icon>default.png</icon>
+	<type>http:4097:512:1007</type>
+	<uri>mms://media19.internet.gr/ParliamentTV-HQ</uri>
+</iptv>
+
+<iptv>
+	<name>Vouli</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1007</type>
+	<uri>rtmp://streamer0.grnet.gr/parliament/parltv.sdp</uri>
+</iptv>
+
+<!-- 4E TV id 1008 -->
 <iptv>
 	<name>4E TV {hls}</name>
 	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
+	<type>livestreamer:4097:512:1008</type>
 	<uri>http://mail.tv4e.gr:1935/live/myStream.sdp/playlist.m3u8</uri>
 </iptv>
 
 <iptv>
-	<name>Action24 {rtmp}</name>
+	<name>4E TV {rtmp}</name>
 	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://srv1.viiideo.gr/videon/action24 live=1</uri>
+	<type>livestreamer:4097:512:1008</type>
+	<uri>rtmp://82.192.84.30:1935/live/myStream.sdp</uri>
 </iptv>
 
+<!-- CRETE TV id 1009 -->
+<iptv>                          
+        <name>Crete TV {rtsp}</name>
+        <icon>default.png</icon>
+        <type>http:4097:512:1009</type>
+        <uri>rtsp://live.cretetv.gr:1935/cretetv/mp4:myStream</uri>
+</iptv>
+<iptv>
+	<name>Crete TV {rtmp}</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1009</type>
+	<uri>rtmp://live.cretetv.gr/cretetv/myStream live=1 timeout=1</uri>
+</iptv>
+<iptv>
+	<name>Crete TV {hls}</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1009</type>
+	<uri>hlsvariant://http://live.cretetv.gr:1935/cretetv/myStream/playlist.m3u8</uri>
+</iptv>	
+	
+<!-- DELTA TV id 1010 -->		
+<iptv>
+	<name>Delta Tv {wmv}</name>
+	<icon>default.png</icon>
+	<type>http:4097:512:1010</type>
+	<uri>mms://ams01.egihosting.com/989630</uri>
+</iptv>	
+	
+<!-- DIKTIO TV id 1011 -->	
+<iptv>
+	<name>Diktio TV</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1011</type>
+	<uri>http://www.justin.tv/diktyotv</uri>
+</iptv>	
+	
+<!-- EPIRUS TV id 1012 -->		
+<iptv>
+	<name>Epirus TV</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1012</type>
+	<uri>http://www.livestream.com/epirustv1live</uri>
+</iptv>	
+	
+<!-- DT TV id 1013 -->	
+<iptv>
+	<name>DT {rtmp}</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1013</type>
+	<uri>rtmp://hprt.flashcloud.mediacdn.com/hprt/live live=1 timeout=10</uri>
+</iptv>
+
+<iptv>
+	<name>DT</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1013</type>
+	<uri>rtmp://cp115017.live.edgefcs.net/live/jiplive@46638 live=1 timeout=10</uri>
+</iptv>
+
+<iptv>
+	<name>DT {hls}</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1013</type>
+	<uri>hlsvariant://http://webcast.flashcloud.mediacdn.com/hprt/live/playlist.m3u8</uri>
+</iptv>
+	
+<!-- DT TV id 1014 -->		
+<iptv>
+	<name>Kontra TV</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1014</type>
+	<uri>rtmp://flashcloud.mediacdn.com/live/kontratv live=1</uri>
+</iptv>	
+	
+
+<!-- STAR LAMIAS TV id 1015 -->	
+<iptv>
+	<name>Star Lamias</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1015</type>
+	<uri>http://www.dailymotion.com/video/xqjey2</uri>
+</iptv>
+
+<!-- MAD TV id 1016 -->	
+<iptv>                          
+        <name>Mad Tv</name>          
+        <icon>default.png</icon>        
+        <type>livestreamer:4097:512:1016/type></type>
+        <uri>youtube.com/watch?v=xIc0PnpXVIo</uri>
+</iptv> 	   
+
+    
+	
+<!-- MAKEDONIA TV id 1017 -->		
+<iptv>  
+	<name>Makedonia Tv</name>            
+	<icon>default.png</icon>           
+	<type>livestreamer:4097:512:1017</type>
+	<uri>rtmp://213.16.167.55/livepkgr/livestream swfVfy=http://static.ant1.gr/maktvlive.ashx pageUrl=http://www.maktv.gr live=1</uri>
+</iptv>
+
+<iptv>
+	<name>Makedonia Tv {wmv}</name>
+	<icon>default.png</icon>
+	<type>http:4097:512:1017</type>
+	<uri>mms://206.222.31.146/et31?sid=00000000-0000-0000-0000-000000000000-00-000000</uri>
+</iptv>
+	
+<!-- TV 100 id 1018 -->
+<iptv>
+	<name>TV 100</name>
+	<icon>default.png</icon>
+	<type>rtsp:4097:512:1018</type>
+	<uri>rtsp://eco.caststream.net/tv100/tv100</uri>
+</iptv>
+<iptv>
+	<name>TV 100 {rtmp}</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1018</type>
+	<uri>rtmp://eco.caststream.net/tv100/tv100 live=1 timeout=10</uri>
+</iptv>	
+
+<!-- ZOOM TV id 1019 -->	
+
+<!-- EURONEWS TV id 1020 -->	
+<iptv>
+	<name>Euronews</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1020</type>
+	<uri>gr.euronews.com</uri>
+</iptv>	
+	
+<!-- ART TV id 1021 -->
+<iptv>
+	<name>Art (Tileasty)</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1021</type>
+	<uri>ustream.tv/channel/live-%CE%91%CF%81%CF%84</uri>
+</iptv>
+	
+<!-- CHANNEL 9 TV id 1022 -->	
+<iptv>
+	<name>Channel 9</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1022</type>
+	<uri>http://www.livestream.com/channel9gr</uri>
+</iptv>	
+	
+<!-- AIGAIO TV id 1023 -->
+
+<!-- BEST TV id 1024 -->
+<iptv>
+	<name>Best Tv</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1024</type>
+	<uri>hlsvariant://http://smooth.istoikona.net/besttv.isml/manifest(format=m3u8-aapl).m3u8</uri>
+</iptv>	
+	
+<!-- CORFU TV id 1025 -->	
+<iptv>
+	<name>Corfu TV</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1025</type>
+	<uri>ustream.tv/channel/corfu-tv</uri>
+</iptv>	
+	
+
+<!-- RIK SAT TV id 1026 -->
+<iptv>
+	<name>Rik Sat (Cyprus)</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1026</type>
+	<uri>http://www.filmon.com/tv/rik</uri>
+</iptv>
+
+<!-- E CHANNEL TV id 1027 -->
+<iptv>
+	<name>E Channel</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1027</type>
+	<uri>rtmp://213.16.167.187:1935/live/mpegts_256.stream live=1 timeout=10</uri>
+</iptv>
+
+<iptv>
+	<name>E Channel</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:1027</type>
+	<uri>rtmp://94.102.58.45:80/kanali10/kanali10.sdp pageUrl=http://kanalia.eu/alpha_original.php live=1 timeout=10</uri>
+</iptv>
+
+<!-- Fin EPG -->	
+	
+<iptv>
+	<name>Omega Tv {wmv}</name>
+	<icon>default.png</icon>
+	<type>rtsp:4097:512:0</type>
+	<uri>rtsp://stream.omegatv.net/Live</uri>
+</iptv>	
+	
 <iptv>                          
         <name>Acheloos TV</name>     
         <icon>default.png</icon>                                      
         <type>livestreamer:4097:512:0</type>
         <uri>rtmp://srv1.viiideo.gr/videon/axeloostv live=1</uri>      
 </iptv>
+
 <iptv>
 	<name>Acheloos TV</name>
 	<icon>default.png</icon>
 	<type>livestreamer:4097:512:0</type>
 	<uri>hlsvariant://http://srv1.viiideo.gr:1935/videon/axeloostv/playlist.m3u8</uri>
-</iptv>
-
-<iptv>
-	<name>Art (Tileasty)</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>ustream.tv/channel/live-%CE%91%CF%81%CF%84</uri>
 </iptv>
 
 <iptv>
@@ -48,134 +333,81 @@
 	<uri>http://www.livestream.com/astratelevision</uri>
 </iptv>
 
-<iptv>                          
-        <name>Crete TV {rtsp}</name>
-        <icon>default.png</icon>
-        <type>http:4097:512:0</type>
-        <uri>rtsp://live.cretetv.gr:1935/cretetv/mp4:myStream</uri>
-</iptv>
 <iptv>
-	<name>Crete TV {rtmp}</name>
+	<name>DH.RA.S</name>
 	<icon>default.png</icon>
 	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://live.cretetv.gr/cretetv/myStream live=1 timeout=1</uri>
+	<uri>rtmp://www.cityofkos.gr/diras/livetv</uri>
 </iptv>
+
 <iptv>
-	<name>Crete TV {hls}</name>
+	<name>Dion TV</name>
 	<icon>default.png</icon>
 	<type>livestreamer:4097:512:0</type>
-	<uri>hlsvariant://http://live.cretetv.gr:1935/cretetv/myStream/playlist.m3u8</uri>
+	<uri>ustream.tv/channel/dion-tv-live</uri>
 </iptv>
 
 <iptv>
-<name>Corfu TV</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>ustream.tv/channel/corfu-tv</uri>
+	<name>Egnantia TV</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:0</type>
+	<uri>ustream.tv/channel/egnatiatv</uri>
 </iptv>
 
 <iptv>
-<name>Channel 9</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>http://www.livestream.com/channel9gr</uri>
+	<name>Extra Channel 3</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:0</type>
+	<uri>rtmp://213.16.167.186:1935/live playpath=mpegts_256.stream swfUrl=http://extratv.gr/media/imgs/flowplayer-3.2.15.swf live=1</uri>
 </iptv>
 
 <iptv>
-<name>DH.RA.S</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>rtmp://www.cityofkos.gr/diras/livetv</uri>
+	<name>Ellada TV</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:0</type>
+	<uri>rtmp://fml.68FC.edgecastcdn.net/2068FC/elladatv</uri>
 </iptv>
 
 <iptv>
-<name>Dion TV</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>ustream.tv/channel/dion-tv-live</uri>
+	<name>Ena Tv (Lamia)</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:0</type>
+	<uri>rtmp://srv1.viiideo.gr/videon/enatv</uri>
 </iptv>
 
 <iptv>
-<name>Diktio TV</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>http://www.justin.tv/diktyotv</uri>
+	<name>Europe1 Tv</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:0</type>
+	<uri>ustream.tv/channel/%CE%95%CE%A5%CE%A1%CE%9F%CE%A0%CE%97-1</uri>
 </iptv>
 
 <iptv>
-<name>Egnantia TV</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>ustream.tv/channel/egnatiatv</uri>
+	<name>Flash Tv</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:0</type>
+	<uri>http://www.justin.tv/flash_television</uri>
 </iptv>
 
 <iptv>
-<name>Epirus TV</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>http://www.livestream.com/epirustv1live</uri>
-</iptv>
-<iptv>
-<name>Extra Channel 3</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>rtmp://213.16.167.186:1935/live playpath=mpegts_256.stream swfUrl=http://extratv.gr/media/imgs/flowplayer-3.2.15.swf live=1</uri>
+	<name>[Web] Greek Video Hits</name>
+	<icon>web.png</icon>
+	<type>livestreamer:4097:512:0</type>
+	<uri>http://www.justin.tv/greekvideohits</uri>
 </iptv>
 
 <iptv>
-<name>Ellada TV</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>rtmp://fml.68FC.edgecastcdn.net/2068FC/elladatv</uri>
+	<name>LePanto TV</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:0</type>
+	<uri>rtmp://159.253.143.17:1935/lepanto/lepanto-rtv live=1</uri>
 </iptv>
 
 <iptv>
-<name>Ena Tv (Lamia)</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>rtmp://srv1.viiideo.gr/videon/enatv</uri>
-</iptv>
-
-<iptv>
-<name>Europe1 Tv</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>ustream.tv/channel/%CE%95%CE%A5%CE%A1%CE%9F%CE%A0%CE%97-1</uri>
-</iptv>
-
-<iptv>
-<name>Flash Tv</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>http://www.justin.tv/flash_television</uri>
-</iptv>
-
-<iptv>
-<name>[Web] Greek Video Hits</name>
-<icon>web.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>http://www.justin.tv/greekvideohits</uri>
-</iptv>
-
-<iptv>
-<name>Kontra TV</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>rtmp://flashcloud.mediacdn.com/live/kontratv live=1</uri>
-</iptv>
-
-<iptv>
-<name>LePanto TV</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>rtmp://159.253.143.17:1935/lepanto/lepanto-rtv live=1</uri>
-</iptv>
-
-<iptv> 
-<name>Mega Tv (Cyprus) {hls}</name>
-<icon>default.png</icon>
-<type>livestreamer:4097:512:0</type>
-<uri>hlsvariant://http://stream.livenews.com.cy/livenews.isml/Manifest%28format=m3u8-aapl%29.m3u</uri>
+	<name>Mega Tv (Cyprus) {hls}</name>
+	<icon>default.png</icon>
+	<type>livestreamer:4097:512:0</type>
+	<uri>hlsvariant://http://stream.livenews.com.cy/livenews.isml/Manifest%28format=m3u8-aapl%29.m3u</uri>
 </iptv>
 
 <iptv>
@@ -200,27 +432,6 @@
 </iptv>
 
 <iptv>
-        <name>Skai</name>
-        <icon>default.png</icon>
-        <type>livestreamer:4097:512:0</type>
-        <uri>youtube.com/watch?v=XvKIgSVWeOE</uri>
-</iptv>
-
-<iptv>
-	<name>Star Channel</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://94.102.58.45:80/alterweb/alterweb.sdp pageUrl=http://kanalia.eu/star_original.php</uri>
-</iptv>
-
-<iptv>
-	<name>Star Channel</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://46.21.146.45:80/alterweb/alterweb.sdp pageUrl=http://kanalia.eu/star_original.php</uri>
-</iptv>
-
-<iptv>
 	<name>Syros TV1</name>
 	<icon>default.png</icon>
 	<type>livestreamer:4097:512:0</type>
@@ -242,19 +453,6 @@
 </iptv>
 
 <iptv>
-	<name>TV 100</name>
-	<icon>default.png</icon>
-	<type>rtsp:4097:512:0</type>
-	<uri>rtsp://eco.caststream.net/tv100/tv100</uri>
-</iptv>
-<iptv>
-	<name>TV 100 {rtmp}</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://eco.caststream.net/tv100/tv100 live=1 timeout=10</uri>
-</iptv>
-
-<iptv>
 	<name>TV Creta {rtmp}</name>
 	<icon>default.png</icon>
 	<type>livestreamer:4097:512:0</type>
@@ -272,13 +470,6 @@
 	<icon>default.png</icon>
 	<type>livestreamer:4097:512:0</type>
 	<uri>ustream.tv/channel/west-tv-live</uri>
-</iptv>
-
-<iptv>
-	<name>Star Lamias</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>http://www.dailymotion.com/video/xqjey2</uri>
 </iptv>
 
 <iptv>
@@ -330,15 +521,7 @@
 	<uri>rtmp://videos.ant1.com.cy/livepkgr playpath=livestream?adbe-live-event=liveevent swfVfy=http://www.ant1iwo.com/flowplayer.rtmp-3.1.3.swf live=1</uri>
 </iptv>
 
-<iptv>                          
-        <name>Mad Tv</name>          
-        <icon>default.png</icon>        
-        <type>livestreamer:4097:512:0</type>
-        <uri>youtube.com/watch?v=xIc0PnpXVIo</uri>                                                                                   
-</iptv>
-
 <!-- WEB -->
-
 <iptv>
 	<name>[Web] BetAnalysis</name>
 	<icon>web.png</icon>
@@ -402,12 +585,7 @@
 	<uri>mms://87.117.228.15/lixnostv</uri>
 </iptv>
 
-<iptv>
-	<name>Omega Tv {wmv}</name>
-	<icon>default.png</icon>
-	<type>rtsp:4097:512:0</type>
-	<uri>rtsp://stream.omegatv.net/Live</uri>
-</iptv>
+
 
 <iptv>
 	<name>Achaia News {wmv}</name>
@@ -422,12 +600,7 @@
 	<uri>rtsp://gw5.connectit.gr/stream-web</uri>
 </iptv>
 
-<iptv>
-	<name>Delta Tv {wmv}</name>
-	<icon>default.png</icon>
-	<type>http:4097:512:0</type>
-	<uri>mms://ams01.egihosting.com/989630</uri>
-</iptv>
+
 
 <iptv>
 	<name>Gold TV {wmv}</name>
@@ -458,14 +631,6 @@
 </iptv>
 
 <iptv>
-	<name>Vouli</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://streamer0.grnet.gr/parliament/parltv.sdp</uri>
-</iptv>
-
-
-<iptv>
 	<name>Kydon</name>
 	<icon>default.png</icon>
 	<type>livestreamer:4097:512:0</type>
@@ -483,27 +648,6 @@
 	<icon>default.png</icon>
 	<type>livestreamer:4097:512:0</type>
 	<uri>ustream.tv/channel/ioannina-tv1</uri>
-</iptv>
-
-<iptv>                                                       
-        <name>Alpha G.A. (Australia)</name>
-        <icon>default.png</icon>
-        <type>livestreamer:4097:512:0</type>
-        <uri>livestream.com/alphagatv</uri>
-</iptv>
-
-<iptv>
-	<name>Rik Sat (Cyprus)</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>http://www.filmon.com/tv/rik</uri>
-</iptv>
-
-<iptv>  
-	<name>Makedonia Tv</name>            
-	<icon>default.png</icon>           
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://213.16.167.55/livepkgr/livestream swfVfy=http://static.ant1.gr/maktvlive.ashx pageUrl=http://www.maktv.gr live=1</uri>
 </iptv>
 
 <iptv>
@@ -562,13 +706,6 @@
 </iptv>
 
 <iptv>
-	<name>Euronews</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>gr.euronews.com</uri>
-</iptv>
-
-<iptv>
         <name>Epiloges TV</name>
         <icon>default.png</icon>
         <type>livestreamer:4097:512:0</type>
@@ -587,13 +724,6 @@
 	<icon>web.png</icon>
 	<type>http:4097:512:0</type>
 	<uri>mmsh://wpso.com:200/music</uri>
-</iptv>
-
-<iptv>
-	<name>Best Tv</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>hlsvariant://http://smooth.istoikona.net/besttv.isml/manifest(format=m3u8-aapl).m3u8</uri>
 </iptv>
 
 <iptv>
@@ -625,48 +755,6 @@
 </iptv>
 
 <iptv>
-	<name>E Channel</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://213.16.167.187:1935/live/mpegts_256.stream live=1 timeout=10</uri>
-</iptv>
-
-<iptv>
-	<name>E Channel</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://94.102.58.45:80/kanali10/kanali10.sdp pageUrl=http://kanalia.eu/alpha_original.php live=1 timeout=10</uri>
-</iptv>
-
-<iptv>
-	<name>Makedonia Tv {wmv}</name>
-	<icon>default.png</icon>
-	<type>http:4097:512:0</type>
-	<uri>mms://206.222.31.146/et31?sid=00000000-0000-0000-0000-000000000000-00-000000</uri>
-</iptv>
-
-<iptv>
-	<name>Vouli {wmv}</name>
-	<icon>default.png</icon>
-	<type>http:4097:512:0</type>
-	<uri>mms://media19.internet.gr/ParliamentTV-HQ</uri>
-</iptv>
-
-<iptv>
-        <name>Skai {hls}</name>
-        <icon>default.png</icon>
-        <type>livestreamer:4097:512:0</type>
-        <uri>hlsvariant://http://skaihdn2-f.akamaihd.net/i/geo_2@86985/master.m3u8</uri>
-</iptv>
-
-<iptv>
-	<name>DT</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://cp115017.live.edgefcs.net/live/jiplive@46638 live=1 timeout=10</uri>
-</iptv>
-
-<iptv>
 	<name>Cosmos TV</name>
 	<icon>default.png</icon>
 	<type>livestreamer:4097:512:0</type>
@@ -681,66 +769,17 @@
 </iptv>
 
 <iptv>
-	<name>Mega TV {hls}</name>
-	<icon>default.png</icon>
-	<type>http:4097:512:0</type>
-	<uri>http://megahdlive1-f.akamaihd.net/i/live_1@105260/master.m3u8</uri>
-</iptv>
-
-<iptv>
-	<name>DT {rtmp}</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://hprt.flashcloud.mediacdn.com/hprt/live live=1 timeout=10</uri>
-</iptv>
-
-<iptv>
-	<name>DT {hls}</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>hlsvariant://http://webcast.flashcloud.mediacdn.com/hprt/live/playlist.m3u8</uri>
-</iptv>
-
-<iptv>
-	<name>ANT1 {hls}</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>hlsvariant://http://wow.ant1.gr:1935/live/smil:valonitv1ant.smil/playlist.m3u8</uri>
-</iptv>
-
-<iptv>
-	<name>ANT1 {rtmp}</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://tmplive.ant1.gr/live app=live swfUrl=http://static.ant1.gr/live.ashx pageUrl=http://www.antenna.gr/webtv/live playpath=valonitv1ant swfhash=96b7a9b413fbf26da0ed3a84e22c3b2a0bbb80d5f6e2a6dd02b578f7faad57f4 swfsize=312201 live=1 timeout=10</uri>
-</iptv>
-
-<iptv>
 	<name>OPT TV {rtmp}</name>
 	<icon>default.png</icon>
 	<type>livestreamer:4097:512:0</type>
 	<uri>rtmp://media.patrisnews.com/patris/tvstream live=1 timeout=10</uri>
 </iptv>
 
-<iptv>
-	<name>Mega TV {rtmp}</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>rtmp://46.21.146.45:80/megaweb/megaweb.sdp pageUrl=http://kanalia.eu/mega_channel_original.php</uri>
-</iptv>
-
-<iptv>
-	<name>Alpha {hls}</name>
-	<icon>default.png</icon>
-	<type>livestreamer:4097:512:0</type>
-	<uri>hlsvariant://http://alfakanali-lh.akamaihd.net/i/live_1@90368/master.m3u8</uri>
-</iptv>
-
-<iptv>
-        <name>Alpha {hds}</name>
+<iptv>                                                       
+        <name>Alpha G.A. (Australia)</name>
         <icon>default.png</icon>
         <type>livestreamer:4097:512:0</type>
-        <uri>hds://http://alfakanali-lh.akamaihd.net/z/live_1@90368/manifest.f4m</uri>
+        <uri>livestream.com/alphagatv</uri>
 </iptv>
 
 <iptv>
