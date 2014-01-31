@@ -11,6 +11,9 @@ from Screens.Console import Console
 url_sc = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/update.sh"
 url_pd = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/depends.sh"
 
+GSXML = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/stream.xml"
+GSBQ = "/etc/enigma2/userbouquet.greekstreamtv.tv"
+
 def menu(menuid, **kwargs):
     if menuid == "mainmenu":
         return [("GreekStreamTV", main, "GreekStreamTV", 33)]
@@ -49,9 +52,11 @@ class GSMenu(Screen):
         self.session = session
         menu = []
         if path.isdir("/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV"):
-            menu.append((_("GreekStreamTV"),"/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/stream.xml"))
+            menu.append((_("GreekStreamTV"), GSXML))
             menu.extend(self.getStreams())
             menu.append((_("Update Greek Stations"), "update"))
+            if path.isfile(GSBQ):
+                menu.append((_("Update Bouquet"), "updatebq"))
             menu.append((_("Install Dependencies"), "depends"))
             menu.append((_("About..."), "about"))
             self["menu"] = MenuList(menu)
@@ -72,6 +77,17 @@ class GSMenu(Screen):
                     self.session.open(MessageBox, tmpMessage, MessageBox.TYPE_INFO)
             elif choice == "update":
                 self.session.openWithCallback(self.update, MessageBox,_("Confirm your selection, or exit"), MessageBox.TYPE_YESNO)
+            elif choice == "updatebq":
+                try:
+                    self.updatebq()
+                    from enigma import eDVBDB
+                    eDVBDB.getInstance().reloadBouquets()
+                    eDVBDB.getInstance().reloadServicelist()
+                    tmpMessage = "GreekStreamTV bouquet updated successfully..."
+                except Exception as err:
+                    print "[GreekStreamTV::PluginMenu] Exception: ", str(err)
+                    tmpMessage = "GreekStreamTV bouquet update failed..."
+                self.session.open(MessageBox, tmpMessage, MessageBox.TYPE_INFO)
             elif choice == "depends":
                 self.session.openWithCallback(self.depends, MessageBox,_("Confirm your selection, or exit"), MessageBox.TYPE_YESNO)
             elif choice == "about":
@@ -79,6 +95,27 @@ class GSMenu(Screen):
                 tmpMessage += "\n\n"
                 tmpMessage += "GreekStreamTV is free and source code included."
                 self.session.open(MessageBox, tmpMessage, MessageBox.TYPE_INFO)
+
+    def updatebq(self):
+        from xml.etree.cElementTree import ElementTree
+        tree = ElementTree()
+        tree.parse(GSXML)
+        tvlist = []
+        for iptv in tree.findall("iptv"):
+            name = iptv.findtext("name").title()
+            (protocol, serviceType, bufferSize, epgId) = iptv.findtext("type").split(":")
+            uri = iptv.findtext("uri")
+            if protocol in "livestreamer":
+                uri = "http://127.1:88/" + uri
+            uri = uri.replace(":", "%3a")
+            service = "#SERVICE {s}:0:1:{e}:{e}:0:0:0:0:0:{u}:{n}\n".format(s=serviceType,e=epgId,u=uri,n=name)
+            tvlist.append((name,service))
+
+        tvlist=sorted(tvlist, key=lambda channel: channel[0]) #sort by name
+        with open(GSBQ, "w") as f:
+            f.write("#NAME GreekStreamTV\n")
+            for (name, service) in tvlist:
+                f.write(service)
 
     def update(self, answer):
         if answer:
