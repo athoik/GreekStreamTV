@@ -106,7 +106,7 @@ class GSMenu(Screen):
             (protocol, serviceType, bufferSize, epgId) = iptv.findtext("type").split(":")
             uri = iptv.findtext("uri")
             if protocol in "livestreamer":
-                uri = "http://127.1:88/" + uri
+                uri = "http://localhost:88/" + uri
             uri = uri.replace(":", "%3a")
             service = "#SERVICE {s}:0:1:{e}:{e}:0:0:0:0:0:{u}:{n}\n".format(s=serviceType,e=epgId,u=uri,n=name)
             tvlist.append((name,service))
