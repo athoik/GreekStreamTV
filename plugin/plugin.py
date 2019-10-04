@@ -5,7 +5,7 @@ from Tools.LoadPixmap import LoadPixmap
 from Components.MenuList import MenuList
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
-from Components.ActionMap import ActionMap 
+from Components.ActionMap import ActionMap
 from Screens.Console import Console
 
 url_sc = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/update.sh"
@@ -14,20 +14,24 @@ url_pd = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/depends.sh"
 GSXML = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/stream.xml"
 GSBQ = "/etc/enigma2/userbouquet.greekstreamtv.tv"
 
+
 def menu(menuid, **kwargs):
     if menuid == "mainmenu":
         return [("GreekStreamTV", main, "GreekStreamTV", 33)]
     return []
 
+
 def main(session, **kwargs):
     try:
         session.open(GSMenu)
     except:
-        print "[GreekStreamTV] Pluginexecution failed"
+        print "[GreekStreamTV] Plugin execution failed"
+
 
 def autostart(reason,**kwargs):
     if reason == 0:
         print "[GreekStreamTV] no autostart"
+
 
 def Plugins(**kwargs):
     return [
@@ -39,13 +43,14 @@ def Plugins(**kwargs):
             icon="plugin.png",
             fnc=main)]
 
+
 class GSMenu(Screen):
     skin = """
-		<screen name="GreekStreamTVList" position="center,center" size="280,220" title="GreekStreamTV">
-			<widget name="menu" itemHeight="35" position="0,0" size="270,140" scrollbarMode="showOnDemand" transparent="1" zPosition="9"/>
-			<ePixmap position="90,150" size="100,40" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/plugin.png" alphatest="on" zPosition="1" />
-		</screen>
-           """
+        <screen name="GreekStreamTVList" position="center,center" size="280,220" title="GreekStreamTV">
+            <widget name="menu" itemHeight="35" position="0,0" size="270,140" scrollbarMode="showOnDemand" transparent="1" zPosition="9"/>
+            <ePixmap position="90,150" size="100,40" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/plugin.png" alphatest="on" zPosition="1"/>
+        </screen>
+        """
 
     def __init__(self, session):
         Screen.__init__(self, session)
@@ -134,4 +139,3 @@ class GSMenu(Screen):
                     list.append((path.splitext(file)[0].title().replace("_", " "), path.join(xml, file)))
 
         return list
-

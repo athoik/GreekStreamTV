@@ -41,11 +41,11 @@ PLUGIN_PATH = resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV")
 
 class SelectQuality(Screen):
     skin = """
-		<screen name="SelectQuality" position="center,center" size="280,180" title="Select Quality">
-			<widget name="menu" itemHeight="35" position="0,0" size="270,130" scrollbarMode="showOnDemand" transparent="1" zPosition="9"/>
-			<widget name="info" position="0,135" zPosition="2" size="270,40" font="Regular;22" foregroundColor="#ffffff" transparent="1" halign="center" valign="center" />
-		</screen>
-           """
+        <screen name="SelectQuality" position="center,center" size="280,180" title="Select Quality">
+            <widget name="menu" itemHeight="35" position="0,0" size="270,130" scrollbarMode="showOnDemand" transparent="1" zPosition="9"/>
+            <widget name="info" position="0,135" zPosition="2" size="270,40" font="Regular;22" foregroundColor="#ffffff" transparent="1" halign="center" valign="center"/>
+        </screen>
+        """
 
     def __init__(self, session, streams, selectedFunc, enableWrapAround=False):
         Screen.__init__(self, session)
@@ -85,16 +85,16 @@ class SelectQuality(Screen):
 
 class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
     skin = """
-               <screen name="GreekStreamTVPlayer" flags="wfNoBorder" position="0,570" size="1280,190" title="GreekStreamTV Player" backgroundColor="#41000000" >
-                   <ePixmap position="80,25" size="117,72" pixmap="%s/channel_background.png" zPosition="-1" transparent="1" alphatest="blend" />
-                   <widget name="channel_icon" position="121,43" zPosition="10" size="35,35" backgroundColor="#41000000" />
-                   <widget name="channel_name" position="250,20" size="650,40" font="Regular;36" halign="left" valign="center" foregroundColor="#ffffff" backgroundColor="#41000000" />
-                   <widget name="channel_uri" position="250,70" size="950,60" font="Regular;22" halign="left" valign="top" foregroundColor="#ffffff" backgroundColor="#41000000" />
-                   <widget source="session.CurrentService" render="Label" position="805,20" size="300,40" font="Regular;30" halign="right" valign="center" foregroundColor="#f4df8d" backgroundColor="#41000000" transparent="1" >
-                       <convert type="ServicePosition">Position,ShowHours</convert>
-                   </widget>
-               </screen>
-           """ % (PLUGIN_PATH)
+        <screen name="GreekStreamTVPlayer" flags="wfNoBorder" position="0,570" size="1280,190" title="GreekStreamTV Player" backgroundColor="#41000000">
+            <ePixmap position="80,25" size="117,72" pixmap="%s/channel_background.png" zPosition="-1" transparent="1" alphatest="blend"/>
+            <widget name="channel_icon" position="121,43" zPosition="10" size="35,35" backgroundColor="#41000000"/>
+            <widget name="channel_name" position="250,20" size="650,40" font="Regular;36" halign="left" valign="center" foregroundColor="#ffffff" backgroundColor="#41000000"/>
+            <widget name="channel_uri" position="250,70" size="950,60" font="Regular;22" halign="left" valign="top" foregroundColor="#ffffff" backgroundColor="#41000000"/>
+            <widget source="session.CurrentService" render="Label" position="805,20" size="300,40" font="Regular;30" halign="right" valign="center" foregroundColor="#f4df8d" backgroundColor="#41000000" transparent="1">
+                <convert type="ServicePosition">Position,ShowHours</convert>
+            </widget>
+        </screen>
+        """ % (PLUGIN_PATH)
 
     PLAYER_IDLE    = 0
     PLAYER_PLAYING = 1
@@ -116,7 +116,7 @@ class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
 
         self.setTitle(chName)
 
-        self["actions"] = ActionMap(["OkCancelActions", "InfobarSeekActions", 
+        self["actions"] = ActionMap(["OkCancelActions", "InfobarSeekActions",
                                      "MediaPlayerActions", "MovieSelectionActions"], {
             "ok": self.doInfoAction,
             "cancel": self.doExit,
@@ -138,7 +138,7 @@ class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
 
         self.state = self.PLAYER_IDLE
         self.__seekableStatusChanged()
- 
+
         self.onClose.append(self.__onClose)
         self.doPlay()
 
@@ -259,9 +259,9 @@ class StreamURIParser:
         tree.parse(self.xml)
         for iptv in tree.findall("iptv"):
             tvlist.append({
-                "name" : str(iptv.findtext("name")).title(), 
+                "name" : str(iptv.findtext("name")).title(),
                 "icon" : str(iptv.findtext("icon")),
-                "type" : str(iptv.findtext("type")), 
+                "type" : str(iptv.findtext("type")),
                 "uri"  : self.parseStreamURI(str(iptv.findtext("uri")))
             })
         return sorted(tvlist, key=lambda item: item["name"])
@@ -275,20 +275,22 @@ class StreamURIParser:
             uriInfo[x[:i]] = str(x[i+1:])
         return uriInfo
 
+
 def streamListEntry(entry):
     uriInfo = entry[1].get("uri")
     return [entry,
-        (eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST,5,1,35,35,loadPNG("%s/icons/%s" % (PLUGIN_PATH, str(entry[1].get("icon"))) )),
-        (eListboxPythonMultiContent.TYPE_TEXT,45,7,360,37,0,RT_HALIGN_LEFT,entry[0]),
-        (eListboxPythonMultiContent.TYPE_TEXT,410,7,400,37,1,RT_HALIGN_LEFT,str(uriInfo.get("URL")))
+        (eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 5, 1, 35, 35, loadPNG("%s/icons/%s" % (PLUGIN_PATH, str(entry[1].get("icon"))))),
+        (eListboxPythonMultiContent.TYPE_TEXT, 45, 7, 360, 37, 0, RT_HALIGN_LEFT, entry[0]),
+        (eListboxPythonMultiContent.TYPE_TEXT, 410, 7, 400, 37, 1, RT_HALIGN_LEFT, str(uriInfo.get("URL")))
     ]
+
 
 class GreekStreamTVList(Screen):
     skin = """
- 		<screen name="GreekStreamTVList" position="center,center" size="800,400" title="GreekStreamTV List (Livestreamer) v3.2">
-			<widget name="streamlist" position="0,0" size="800,360" backgroundColor="#000000" zPosition="10" scrollbarMode="showOnDemand" />
-			<widget name="info" position="0,365" zPosition="2" size="800,35" font="Regular;22" foregroundColor="#ffffff" transparent="1" halign="center" valign="center" />
-		</screen>
+         <screen name="GreekStreamTVList" position="center,center" size="800,400" title="GreekStreamTV List (Livestreamer)">
+            <widget name="streamlist" position="0,0" size="800,360" backgroundColor="#000000" zPosition="10" scrollbarMode="showOnDemand"/>
+            <widget name="info" position="0,365" zPosition="2" size="800,35" font="Regular;22" foregroundColor="#ffffff" transparent="1" halign="center" valign="center"/>
+        </screen>
            """
 
     def __init__(self, session, streamFile = None):
@@ -296,8 +298,8 @@ class GreekStreamTVList(Screen):
         Screen.__init__(self, session)
 
         self["info"] = Label("...")
-        self["actions"]  = ActionMap(["OkCancelActions", "ShortcutActions", "WizardActions", 
-                                      "ColorActions", "SetupActions", "NumberActions", "MenuActions"], {
+        self["actions"] = ActionMap(["OkCancelActions", "ShortcutActions", "WizardActions",
+                                     "ColorActions", "SetupActions", "NumberActions", "MenuActions"], {
             "ok"    : self.keyOK,
             "cancel": self.keyCancel,
             "up"    : self.keyUp,
@@ -381,7 +383,7 @@ class GreekStreamTVList(Screen):
         if self.keyLocked:
             return
 
-        uriName  = self["streamlist"].getCurrent()[0][1].get("name")
+        uriName = self["streamlist"].getCurrent()[0][1].get("name")
         self["info"].setText("Starting %s Please Wait..." % uriName)
         self.timer = eTimer()
         self.timer.callback.append(self.StartStream)
@@ -389,11 +391,11 @@ class GreekStreamTVList(Screen):
 
     def StartStream(self):
         self.timer.stop()
-        self.keyLocked        = True
-        self.beforeService    = None
-        self.currentService   = None
-        self.playerStoped     = False
-        self.pd               = None
+        self.keyLocked      = True
+        self.beforeService  = None
+        self.currentService = None
+        self.playerStoped   = False
+        self.pd             = None
 
         streamInfo  = self["streamlist"].getCurrent()[0][1]
         uriInfo     = streamInfo.get("uri")
@@ -525,8 +527,8 @@ class GreekStreamTVList(Screen):
 
         self.beforeService  = self.session.nav.getCurrentlyPlayingServiceReference()
         self.currentService = self.session.openWithCallback(self.onStreamFinished,
-                                    GreekStreamTVPlayer, 
-                                    service, 
+                                    GreekStreamTVPlayer,
+                                    service,
                                     stopPlayer=self.stopPlayer,
                                     chName=str(streamInfo.get("name")),
                                     chURL =str(uriInfo.get("URL")),
@@ -552,14 +554,15 @@ class GreekStreamTVList(Screen):
             streamDB = []
         self.streamList = [ (x.get("name"), x) for x in streamDB ]
 
+
 def main(session, **kwargs):
     session.open(GreekStreamTVList, kwargs['streamFile'])
-                                                           
+
+
 def Plugins(**kwargs):
     return PluginDescriptor(
-        name = _("GreekStreamTVPlayer"),
-        description = "Watching live stream TV",
-        where = PluginDescriptor.WHERE_PLUGINMENU,
-        fnc = main,
-        icon = "plugin.png")
-
+        name=_("GreekStreamTV player"),
+        description=_("Watching live stream TV"),
+        where=PluginDescriptor.WHERE_PLUGINMENU,
+        fnc=main,
+        icon="plugin.png")
