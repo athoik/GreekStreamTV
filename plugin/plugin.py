@@ -45,14 +45,12 @@ def autostart(reason,**kwargs):
 
 
 def Plugins(**kwargs):
-    return [
-        PluginDescriptor(name="GreekStreamTV", where=PluginDescriptor.WHERE_MENU, description=_("Watch live stream TV"), fnc=menu),
-        PluginDescriptor(
-            name="GreekStreamTV",
-            where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU],
-            description=_("Watch live stream TV"),
-            icon="plugin.png",
-            fnc=main)]
+    return PluginDescriptor(
+        name="GreekStreamTV",
+        where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU],
+        description=_("Watch live stream TV"),
+        icon="plugin.png",
+        fnc=main)
 
 
 class GSMenu(Screen):
