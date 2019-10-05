@@ -28,6 +28,7 @@ from Screens.MessageBox import MessageBox
 from Screens.InfoBarGenerics import InfoBarAudioSelection, InfoBarNotifications
 from Components.Label import Label
 from Components.ActionMap import ActionMap
+from Components.config import config
 from Components.MenuList import MenuList
 from Components.Pixmap import Pixmap
 from Components.AVSwitch import AVSwitch
@@ -36,12 +37,22 @@ from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 
 from livestreamer import Livestreamer
 
+import gettext
+
+
+try:
+    cat = gettext.translation("GreekStreamTV", "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/locale", [config.osd.language.getText()])
+    _ = cat.gettext
+except IOError:
+    pass
+
+
 PLUGIN_PATH = resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV")
 
 
 class SelectQuality(Screen):
     skin = """
-        <screen name="SelectQuality" position="center,center" size="280,180" title="Select Quality">
+        <screen name="SelectQuality" position="center,center" size="280,180" title="Select quality">
             <widget name="menu" itemHeight="35" position="0,0" size="270,130" scrollbarMode="showOnDemand" transparent="1" zPosition="9"/>
             <widget name="info" position="0,135" zPosition="2" size="270,40" font="Regular;22" foregroundColor="#ffffff" transparent="1" halign="center" valign="center"/>
         </screen>
@@ -49,6 +60,7 @@ class SelectQuality(Screen):
 
     def __init__(self, session, streams, selectedFunc, enableWrapAround=False):
         Screen.__init__(self, session)
+        self.setTitle(_("Select quality"))
         self.session = session
         self["info"] = Label("...")
         self.selectedFunc = selectedFunc
@@ -64,7 +76,7 @@ class SelectQuality(Screen):
         return cur and cur[1]
 
     def okbuttonClick(self):
-        self["info"].setText("Please Wait...")
+        self["info"].setText(_("Please wait..."))
         self.timer = eTimer()
         self.timer.callback.append(self.StartStreaming)
         self.timer.start(100, 1)
@@ -85,7 +97,7 @@ class SelectQuality(Screen):
 
 class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
     skin = """
-        <screen name="GreekStreamTVPlayer" flags="wfNoBorder" position="0,570" size="1280,190" title="GreekStreamTV Player" backgroundColor="#41000000">
+        <screen name="GreekStreamTVPlayer" flags="wfNoBorder" position="0,570" size="1280,190" title="GreekStreamTV player" backgroundColor="#41000000">
             <ePixmap position="80,25" size="117,72" pixmap="%s/channel_background.png" zPosition="-1" transparent="1" alphatest="blend"/>
             <widget name="channel_icon" position="121,43" zPosition="10" size="35,35" backgroundColor="#41000000"/>
             <widget name="channel_name" position="250,20" size="650,40" font="Regular;36" halign="left" valign="center" foregroundColor="#ffffff" backgroundColor="#41000000"/>
@@ -179,13 +191,13 @@ class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
         currPlay = self.session.nav.getCurrentService()
         sAudioType = currPlay.info().getInfoString(iServiceInformation.sUser + 10)
         print "[__evAudioDecodeError] audio-codec %s can't be decoded by hardware" % (sAudioType)
-        self.session.open(MessageBox, _("This Dreambox can't decode %s streams!") % sAudioType, type=MessageBox.TYPE_INFO, timeout=20)
+        self.session.open(MessageBox, _("This receiver can't decode %s streams!") % sAudioType, type=MessageBox.TYPE_INFO, timeout=20)
 
     def __evVideoDecodeError(self):
         currPlay = self.session.nav.getCurrentService()
         sVideoType = currPlay.info().getInfoString(iServiceInformation.sVideoType)
         print "[__evVideoDecodeError] video-codec %s can't be decoded by hardware" % (sVideoType)
-        self.session.open(MessageBox, _("This Dreambox can't decode %s streams!") % sVideoType, type=MessageBox.TYPE_INFO, timeout=20)
+        self.session.open(MessageBox, _("This receiver can't decode %s streams!") % sVideoType, type=MessageBox.TYPE_INFO, timeout=20)
 
     def __evPluginError(self):
         currPlay = self.session.nav.getCurrentService()
@@ -287,7 +299,7 @@ def streamListEntry(entry):
 
 class GreekStreamTVList(Screen):
     skin = """
-         <screen name="GreekStreamTVList" position="center,center" size="800,400" title="GreekStreamTV List (Livestreamer)">
+         <screen name="GreekStreamTVList" position="center,center" size="800,400" title="GreekStreamTV list (Livestreamer)">
             <widget name="streamlist" position="0,0" size="800,360" backgroundColor="#000000" zPosition="10" scrollbarMode="showOnDemand"/>
             <widget name="info" position="0,365" zPosition="2" size="800,35" font="Regular;22" foregroundColor="#ffffff" transparent="1" halign="center" valign="center"/>
         </screen>
@@ -297,6 +309,7 @@ class GreekStreamTVList(Screen):
         self.session = session
         Screen.__init__(self, session)
 
+        self.setTitle(_("GreekStreamTV list"))
         self["info"] = Label("...")
         self["actions"] = ActionMap(["OkCancelActions", "ShortcutActions", "WizardActions",
                                      "ColorActions", "SetupActions", "NumberActions", "MenuActions"], {
@@ -384,7 +397,7 @@ class GreekStreamTVList(Screen):
             return
 
         uriName = self["streamlist"].getCurrent()[0][1].get("name")
-        self["info"].setText("Starting %s Please Wait..." % uriName)
+        self["info"].setText(_("Starting %s\n\nPlease wait...") % uriName)
         self.timer = eTimer()
         self.timer.callback.append(self.StartStream)
         self.timer.start(100, 1)
@@ -562,7 +575,7 @@ def main(session, **kwargs):
 def Plugins(**kwargs):
     return PluginDescriptor(
         name=_("GreekStreamTV player"),
-        description=_("Watching live stream TV"),
+        description=_("Watch live stream TV"),
         where=PluginDescriptor.WHERE_PLUGINMENU,
         fnc=main,
         icon="plugin.png")
