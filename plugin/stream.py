@@ -21,15 +21,18 @@ from thread import start_new_thread
 from xml.etree.cElementTree import ElementTree
 
 from enigma import eTimer, ePicLoad, loadPNG, eServiceReference, iPlayableService, iServiceInformation
-from enigma import gFont, eListboxPythonMultiContent, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, RT_HALIGN_CENTER, RT_VALIGN_CENTER
+from enigma import gFont, eListboxPythonMultiContent, RT_HALIGN_LEFT, RT_VALIGN_CENTER
 from Plugins.Plugin import PluginDescriptor
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Screens.InfoBarGenerics import InfoBarAudioSelection, InfoBarNotifications
+from skin import parseFont
 from Components.Label import Label
 from Components.ActionMap import ActionMap
 from Components.config import config
+from Components.GUIComponent import GUIComponent
 from Components.MenuList import MenuList
+from Components.MultiContent import MultiContentEntryText, MultiContentEntryPixmapAlphaBlend
 from Components.Pixmap import Pixmap
 from Components.AVSwitch import AVSwitch
 from Components.ServiceEventTracker import ServiceEventTracker
@@ -288,13 +291,88 @@ class StreamURIParser:
         return uriInfo
 
 
-def streamListEntry(entry):
-    uriInfo = entry[1].get("uri")
-    return [entry,
-        (eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 5, 1, 35, 35, loadPNG("%s/icons/%s" % (PLUGIN_PATH, str(entry[1].get("icon"))))),
-        (eListboxPythonMultiContent.TYPE_TEXT, 45, 7, 360, 37, 0, RT_HALIGN_LEFT, entry[0]),
-        (eListboxPythonMultiContent.TYPE_TEXT, 410, 7, 400, 37, 1, RT_HALIGN_LEFT, str(uriInfo.get("URL")))
-    ]
+class StreamList(MenuList):
+    def __init__(self, streamList):
+        MenuList.__init__(self, streamList, True, eListboxPythonMultiContent)
+        self.l.setBuildFunc(self.streamListEntry)
+
+        # default skin parameters
+        self.serviceNameFont = gFont("Regular", 22)
+        self.serviceUrlFont = gFont("Regular", 18)
+        self.itemHeight = 37
+        self.serviceNamePosition = (45,0)
+        self.serviceNameSize = (300,37)
+        self.serviceUrlPosition = (350,0)
+        self.serviceUrlSize = (430,37)
+        self.iconPosition = (5,1)
+        self.iconSize = (35,35)
+
+    def applySkin(self, desktop, parent):
+        def warningWrongSkinParameter(string):
+            print "[StreamList] wrong '%s' skin parameter" % string
+        def itemHeight(value):
+            self.itemHeight = int(value)
+        def serviceNameFont(value):
+            self.serviceNameFont = parseFont(value, ((1,1),(1,1)))
+        def serviceUrlFont(value):
+            self.serviceUrlFont = parseFont(value, ((1,1),(1,1)))
+        def serviceNamePosition(value):
+            pos = map(int, value.split(','))
+            if len(pos) == 2:
+                self.serviceNamePosition = pos
+            else:
+                warningWrongSkinParameter(attrib)
+        def serviceNameSize(value):
+            size = map(int, value.split(','))
+            if len(size) == 2:
+                self.serviceNameSize = size
+            else:
+                warningWrongSkinParameter(attrib)
+        def serviceUrlPosition(value):
+            pos = map(int, value.split(','))
+            if len(pos) == 2:
+                self.serviceUrlPosition = pos
+            else:
+                warningWrongSkinParameter(attrib)
+        def serviceUrlSize(value):
+            size = map(int, value.split(','))
+            if len(size) == 2:
+                self.serviceUrlSize = size
+            else:
+                warningWrongSkinParameter(attrib)
+        def iconPosition(value):
+            pos = map(int, value.split(','))
+            if len(pos) == 2:
+                self.iconPosition = pos
+            else:
+                warningWrongSkinParameter(attrib)
+        def iconSize(value):
+            size = map(int, value.split(','))
+            if len(size) == 2:
+                self.iconSize = size
+            else:
+                warningWrongSkinParameter(attrib)
+        for (attrib, value) in self.skinAttributes[:]:
+            try:
+                locals().get(attrib)(value)
+                self.skinAttributes.remove((attrib, value))
+            except:
+                pass
+        self.l.setItemHeight(self.itemHeight)
+        self.l.setFont(0, self.serviceNameFont)
+        self.l.setFont(1, self.serviceUrlFont)
+        return GUIComponent.applySkin(self, desktop, parent)
+
+    def streamListEntry(self, name, entry):
+        uriInfo = entry.get("uri")
+        url = str(uriInfo.get("URL"))
+        icon = loadPNG("%s/icons/%s" % (PLUGIN_PATH, str(entry.get("icon"))))
+
+        return [ None, # no private data
+            MultiContentEntryPixmapAlphaBlend(self.iconPosition, self.iconSize, icon),
+            MultiContentEntryText(self.serviceNamePosition, self.serviceNameSize, 0, RT_HALIGN_LEFT|RT_VALIGN_CENTER, str(name)),
+            MultiContentEntryText(self.serviceUrlPosition, self.serviceUrlSize, 1, RT_HALIGN_LEFT|RT_VALIGN_CENTER, url)
+        ]
 
 
 class GreekStreamTVList(Screen):
@@ -333,13 +411,7 @@ class GreekStreamTVList(Screen):
 
         self.streamList = []
         self.makeStreamList()
-
-        self.streamMenuList = MenuList([], enableWrapAround=True, content=eListboxPythonMultiContent)
-        self.streamMenuList.l.setFont(0, gFont("Regular", 22))
-        self.streamMenuList.l.setFont(1, gFont("Regular", 18))
-        self.streamMenuList.l.setItemHeight(37)
-        self["streamlist"] = self.streamMenuList
-        self.streamMenuList.setList(map(streamListEntry, self.streamList))
+        self["streamlist"] = StreamList(self.streamList)
 
         self.onLayoutFinish.append(self.layoutFinished)
 
@@ -386,7 +458,7 @@ class GreekStreamTVList(Screen):
 
     def showName(self):
         try:
-            tmpName = self["streamlist"].getCurrent()[0][1].get("name")
+            tmpName = self["streamlist"].getCurrent()[1].get("name")
         except:
             tmpName = "..."
         self["info"].setText(tmpName)
@@ -396,7 +468,7 @@ class GreekStreamTVList(Screen):
         if self.keyLocked:
             return
 
-        uriName = self["streamlist"].getCurrent()[0][1].get("name")
+        uriName = self["streamlist"].getCurrent()[1].get("name")
         self["info"].setText(_("Starting %s\n\nPlease wait...") % uriName)
         self.timer = eTimer()
         self.timer.callback.append(self.StartStream)
@@ -410,7 +482,7 @@ class GreekStreamTVList(Screen):
         self.playerStoped   = False
         self.pd             = None
 
-        streamInfo  = self["streamlist"].getCurrent()[0][1]
+        streamInfo  = self["streamlist"].getCurrent()[1]
         uriInfo     = streamInfo.get("uri")
         typeInfo    = streamInfo.get("type").split(":")
         protocol    = typeInfo[0]
@@ -534,7 +606,7 @@ class GreekStreamTVList(Screen):
         #if bufferSize is not None:
         #    service.setData(2, bufferSize*1024)
 
-        streamInfo = self["streamlist"].getCurrent()[0][1]
+        streamInfo = self["streamlist"].getCurrent()[1]
         service.setName(str(streamInfo.get("name")))
         uriInfo    = streamInfo.get("uri")
 
