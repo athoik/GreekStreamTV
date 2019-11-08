@@ -1,7 +1,6 @@
 from os import path, listdir
 
 from Plugins.Plugin import PluginDescriptor
-from Tools.LoadPixmap import LoadPixmap
 from Components.MenuList import MenuList
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
@@ -40,7 +39,7 @@ def main(session, **kwargs):
         print "[GreekStreamTV] Plugin execution failed"
 
 
-def autostart(reason,**kwargs):
+def autostart(reason, **kwargs):
     if reason == 0:
         print "[GreekStreamTV] no autostart"
 
@@ -57,7 +56,7 @@ def Plugins(**kwargs):
 class GSMenu(Screen):
     skin = """
         <screen name="GSMenu" position="center,center" size="560,430" title="GreekStreamTV">
-            <widget name="menu" itemHeight="35" position="10,10" size="540,410" scrollbarMode="showOnDemand" transparent="1" zPosition="9"/>
+            <widget name="menu" itemHeight="35" position="10,50" size="540,360" scrollbarMode="showOnDemand" transparent="1" zPosition="9"/>
             <ePixmap pixmap="buttons/red.png" position="0,0" size="140,40" alphatest="on"/>
             <ePixmap pixmap="buttons/green.png" position="140,0" size="140,40" alphatest="on"/>
             <ePixmap pixmap="buttons/yellow.png" position="280,0" size="140,40" alphatest="on"/>
@@ -72,11 +71,10 @@ class GSMenu(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
         self.setTitle(_("GreekStreamTV"))
-        self.session = session
 
         self["key_red"] = StaticText(_("Close"))
-        self["key_green"] = StaticText("Select")
-        self["key_yellow"] = StaticText("Install dependencies")
+        self["key_green"] = StaticText(_("Select"))
+        self["key_yellow"] = StaticText(_("Install dependencies"))
         self["key_blue"] = StaticText(_("About"))
 
         menu = []
@@ -88,9 +86,8 @@ class GSMenu(Screen):
                 menu.append((_("Update bouquet"), "updatebq"))
 
         self["menu"] = MenuList(menu)
-        self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions", "OkCancelActions"],
+        self["actions"] = ActionMap(["ColorActions", "OkCancelActions"],
         {
-            "back": self.close,
             "cancel": self.close,
             "red": self.close,
             "ok": self.go,
@@ -100,8 +97,8 @@ class GSMenu(Screen):
         }, -1)
 
     def go(self):
-        if self["menu"].l.getCurrentSelection() is not None:
-            choice = self["menu"].l.getCurrentSelection()[1]
+        if self["menu"].getCurrent() is not None:
+            choice = self["menu"].getCurrent()[1]
             if choice.endswith(".xml"):
                 try:
                     from Plugins.Extensions.GreekStreamTV.stream import main
@@ -110,10 +107,15 @@ class GSMenu(Screen):
                     print "[GreekStreamTV::PluginMenu] Exception: ", str(err)
                     import traceback
                     traceback.print_exc()
-                    tmpMessage = _("Error loading plugin!\n\nError: ") + str(err)[:200] + _("...\nInstalling the necessary dependencies might solve the problem...")
-                    self.session.open(MessageBox, tmpMessage, MessageBox.TYPE_INFO)
+                    msg = _("Error loading plugin!")
+                    msg += "\n\n"
+                    msg += _("Error: ")
+                    msg += str(err)[:200] + "...\n"
+                    msg += _("Installing the necessary dependencies might solve the problem...")
+                    self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
             elif choice == "update":
-                self.session.openWithCallback(self.update, MessageBox, _("Do you really want to update the list of stations?"), MessageBox.TYPE_YESNO)
+                msg = _("Do you really want to update the list of stations?")
+                self.session.openWithCallback(self.update, MessageBox, msg, MessageBox.TYPE_YESNO)
             elif choice == "updatebq":
                 try:
                     self.updatebq()
@@ -138,10 +140,10 @@ class GSMenu(Screen):
             if protocol in "livestreamer":
                 uri = "http://localhost:88/" + uri
             uri = uri.replace(":", "%3a")
-            service = "#SERVICE {s}:0:1:{e}:{e}:0:0:0:0:0:{u}:{n}\n".format(s=serviceType,e=epgId,u=uri,n=name)
+            service = "#SERVICE {s}:0:1:{e}:{e}:0:0:0:0:0:{u}:{n}\n".format(s=serviceType, e=epgId, u=uri, n=name)
             tvlist.append((name,service))
 
-        tvlist=sorted(tvlist, key=lambda channel: channel[0]) #sort by name
+        tvlist = sorted(tvlist, key=lambda channel: channel[0]) # sort by name
         with open(GSBQ, "w") as f:
             f.write("#NAME GreekStreamTV\n")
             for (name, service) in tvlist:
@@ -149,14 +151,15 @@ class GSMenu(Screen):
 
     def update(self, answer):
         if answer:
-            self.session.open(Console, _("Updating"), ["%s update" % url_sc])
+            self.session.open(Console, _("Updating"), ["%s update" % url_sc], showStartStopText=False)
 
     def depends(self, answer):
         if answer:
-            self.session.open(Console, _("Installing"), ["%s update" % url_pd])
+            self.session.open(Console, _("Installing"), ["%s update" % url_pd], showStartStopText=False)
 
     def yellow(self):
-        self.session.openWithCallback(self.depends, MessageBox, _("Do you really want to install the necessary software dependencies?"), MessageBox.TYPE_YESNO)
+        msg = _("Do you really want to install the necessary software dependencies?")
+        self.session.openWithCallback(self.depends, MessageBox, msg, MessageBox.TYPE_YESNO)
 
     def blue(self):
         msg = _("For information or questions please refer to www.satdreamgr.com forum.")
