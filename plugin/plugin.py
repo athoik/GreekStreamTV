@@ -7,6 +7,7 @@ from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap
 from Components.config import config
+from Components.Sources.StaticText import StaticText
 from Screens.Console import Console
 
 import gettext
@@ -55,9 +56,16 @@ def Plugins(**kwargs):
 
 class GSMenu(Screen):
     skin = """
-        <screen name="GSMenu" position="center,center" size="280,220" title="GreekStreamTV">
-            <widget name="menu" itemHeight="35" position="0,0" size="270,140" scrollbarMode="showOnDemand" transparent="1" zPosition="9"/>
-            <ePixmap position="90,150" size="100,40" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/plugin.png" alphatest="on" zPosition="1"/>
+        <screen name="GSMenu" position="center,center" size="560,430" title="GreekStreamTV">
+            <widget name="menu" itemHeight="35" position="10,10" size="540,410" scrollbarMode="showOnDemand" transparent="1" zPosition="9"/>
+            <ePixmap pixmap="buttons/red.png" position="0,0" size="140,40" alphatest="on"/>
+            <ePixmap pixmap="buttons/green.png" position="140,0" size="140,40" alphatest="on"/>
+            <ePixmap pixmap="buttons/yellow.png" position="280,0" size="140,40" alphatest="on"/>
+            <ePixmap pixmap="buttons/blue.png" position="420,0" size="140,40" alphatest="on"/>
+            <widget source="key_red" render="Label" position="0,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1"/>
+            <widget source="key_green" render="Label" position="140,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1"/>
+            <widget source="key_yellow" render="Label" position="280,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1"/>
+            <widget source="key_blue" render="Label" position="420,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1"/>
         </screen>
         """
 
@@ -65,6 +73,12 @@ class GSMenu(Screen):
         Screen.__init__(self, session)
         self.setTitle(_("GreekStreamTV"))
         self.session = session
+
+        self["key_red"] = StaticText(_("Close"))
+        self["key_green"] = StaticText("Select")
+        self["key_yellow"] = StaticText("Install dependencies")
+        self["key_blue"] = StaticText(_("About"))
+
         menu = []
         if path.isdir("/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV"):
             menu.append((_("GreekStreamTV"), GSXML))
@@ -72,10 +86,18 @@ class GSMenu(Screen):
             menu.append((_("Update stations"), "update"))
             if path.isfile(GSBQ):
                 menu.append((_("Update bouquet"), "updatebq"))
-            menu.append((_("Install dependencies"), "depends"))
-            menu.append((_("About..."), "about"))
-            self["menu"] = MenuList(menu)
-            self["actions"] = ActionMap(["WizardActions", "DirectionActions"], {"ok": self.go,"back": self.close,}, -1)
+
+        self["menu"] = MenuList(menu)
+        self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions", "OkCancelActions"],
+        {
+            "back": self.close,
+            "cancel": self.close,
+            "red": self.close,
+            "ok": self.go,
+            "green": self.go,
+            "yellow": self.yellow,
+            "blue": self.blue,
+        }, -1)
 
     def go(self):
         if self["menu"].l.getCurrentSelection() is not None:
@@ -102,13 +124,6 @@ class GSMenu(Screen):
                 except Exception as err:
                     print "[GreekStreamTV::PluginMenu] Exception: ", str(err)
                     tmpMessage = _("GreekStreamTV bouquet update failed...")
-                self.session.open(MessageBox, tmpMessage, MessageBox.TYPE_INFO)
-            elif choice == "depends":
-                self.session.openWithCallback(self.depends, MessageBox, _("Do you really want to install the necessary software dependencies?"), MessageBox.TYPE_YESNO)
-            elif choice == "about":
-                tmpMessage = _("For information or questions please refer to www.satdreamgr.com forum.")
-                tmpMessage += "\n\n"
-                tmpMessage += _("GreekStreamTV is free.")
                 self.session.open(MessageBox, tmpMessage, MessageBox.TYPE_INFO)
 
     def updatebq(self):
@@ -139,6 +154,15 @@ class GSMenu(Screen):
     def depends(self, answer):
         if answer:
             self.session.open(Console, _("Installing"), ["%s update" % url_pd])
+
+    def yellow(self):
+        self.session.openWithCallback(self.depends, MessageBox, _("Do you really want to install the necessary software dependencies?"), MessageBox.TYPE_YESNO)
+
+    def blue(self):
+        msg = _("For information or questions please refer to www.satdreamgr.com forum.")
+        msg += "\n\n"
+        msg += _("GreekStreamTV is free.")
+        self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
 
     def getStreams(self):
         xml = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/xml"
