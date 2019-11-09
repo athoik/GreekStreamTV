@@ -525,11 +525,11 @@ class GreekStreamTVList(Screen):
                     self.qsel = self.session.openWithCallback(self.QualitySelClosed, SelectQuality, streams, self.streamPreBuffer)
             except Exception as err:
                 print "[GreekStreamTVList::keyOK::Exception] Error: ", err
-                tmpMessage = "An Error Occured: " + str(err)[:200] + "..."
+                tmpMessage = _("An error occured: ") + str(err)[:200] + "..."
                 self.session.openWithCallback(self.stopPlayer, MessageBox, tmpMessage, type=MessageBox.TYPE_ERROR, timeout=20)
         else:
             print "[GreekStreamTVList::keyOK] Unknown Protocol: ", protocol
-            tmpMessage = "Unknown Protocol: " + protocol
+            tmpMessage = _("Unknown protocol: ") + protocol
             self.session.openWithCallback(self.stopPlayer, MessageBox, tmpMessage, type=MessageBox.TYPE_WARNING, timeout=20)
 
     def QualitySelClosed(self, recursive):
@@ -552,7 +552,7 @@ class GreekStreamTVList(Screen):
             if fd and hasattr(fd, "close"):
                 fd.close()
             print "[GreekStreamTVList::streamPreBuffer::Exception] Error: ", err
-            tmpMessage = "An Error Occured while buffering: " + str(err)[:200] + "..."
+            tmpMessage = _("An error occured while buffering: ") + str(err)[:200] + "..."
             self.session.openWithCallback(self.stopPlayer, MessageBox, tmpMessage, type=MessageBox.TYPE_ERROR, timeout=20)
 
     def streamCopy(self, fd, prebuffer):
