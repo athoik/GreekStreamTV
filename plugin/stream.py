@@ -35,6 +35,7 @@ from Components.MenuList import MenuList
 from Components.MultiContent import MultiContentEntryText, MultiContentEntryPixmapAlphaBlend
 from Components.Pixmap import Pixmap
 from Components.AVSwitch import AVSwitch
+from Components.Sources.StaticText import StaticText
 from Components.ServiceEventTracker import ServiceEventTracker
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 
@@ -377,22 +378,28 @@ class StreamList(MenuList):
 
 class GreekStreamTVList(Screen):
     skin = """
-         <screen name="GreekStreamTVList" position="center,center" size="800,400" title="GreekStreamTV list (Livestreamer)">
-            <widget name="streamlist" position="0,0" size="800,360" backgroundColor="#000000" zPosition="10" scrollbarMode="showOnDemand"/>
-            <widget name="info" position="0,365" zPosition="2" size="800,35" font="Regular;22" foregroundColor="#ffffff" transparent="1" halign="center" valign="center"/>
-        </screen>
-           """
+         <screen name="GreekStreamTVList" position="center,center" size="560,430" title="GreekStreamTV list">
+            <ePixmap pixmap="buttons/red.png" position="0,0" size="140,40" alphatest="on"/>
+            <ePixmap pixmap="buttons/green.png" position="140,0" size="140,40" alphatest="on"/>
+            <widget source="key_red" render="Label" position="0,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1"/>
+            <widget source="key_green" render="Label" position="140,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1"/>
+            <widget name="streamlist" position="10,50" size="540,320" zPosition="10" scrollbarMode="showOnDemand"/>
+            <widget name="info" position="10,380" zPosition="2" size="540,35" font="Regular;22" transparent="1" halign="center" valign="center"/>
+        </screen>"""
 
-    def __init__(self, session, streamFile = None):
-        self.session = session
+    def __init__(self, session, streamFile=None):
         Screen.__init__(self, session)
-
         self.setTitle(_("GreekStreamTV list"))
         self["info"] = Label("...")
-        self["actions"] = ActionMap(["OkCancelActions", "ShortcutActions", "WizardActions",
-                                     "ColorActions", "SetupActions", "NumberActions", "MenuActions"], {
+        self["key_red"] = StaticText(_("Cancel"))
+        self["key_green"] = StaticText(_("Play"))
+
+        self["actions"] = ActionMap(["OkCancelActions", "WizardActions", "ColorActions"],
+        {
             "ok"    : self.keyOK,
+            "green" : self.keyOK,
             "cancel": self.keyCancel,
+            "red"   : self.keyCancel,
             "up"    : self.keyUp,
             "down"  : self.keyDown,
             "left"  : self.keyLeft,
