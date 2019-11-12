@@ -26,12 +26,6 @@ GSXML = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/stream.xml"
 GSBQ = "/etc/enigma2/userbouquet.greekstreamtv.tv"
 
 
-def menu(menuid, **kwargs):
-    if menuid == "mainmenu":
-        return [("GreekStreamTV", main, "GreekStreamTV", 33)]
-    return []
-
-
 def main(session, **kwargs):
     try:
         session.open(GSMenu)
