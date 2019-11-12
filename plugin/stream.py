@@ -37,7 +37,8 @@ from Components.Pixmap import Pixmap
 from Components.AVSwitch import AVSwitch
 from Components.Sources.StaticText import StaticText
 from Components.ServiceEventTracker import ServiceEventTracker
-from Tools.Directories import resolveFilename, SCOPE_PLUGINS
+from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_CURRENT_PLUGIN, SCOPE_CURRENT_SKIN
+from Tools.LoadPixmap import LoadPixmap
 
 from livestreamer import Livestreamer
 
@@ -367,7 +368,9 @@ class StreamList(MenuList):
     def streamListEntry(self, name, entry):
         uriInfo = entry.get("uri")
         url = str(uriInfo.get("URL"))
-        icon = loadPNG("%s/icons/%s" % (PLUGIN_PATH, str(entry.get("icon"))))
+        icon = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "icons/GreekStreamTV/%s" % str(entry.get("icon"))))
+        if icon is None: # fallback to icon supplied by the plugin
+            icon = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, "%s/icons/%s" % (PLUGIN_PATH, str(entry.get("icon")))))
 
         return [ None, # no private data
             MultiContentEntryPixmapAlphaBlend(self.iconPosition, self.iconSize, icon),
