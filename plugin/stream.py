@@ -121,7 +121,7 @@ class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
         InfoBarAudioSelection.__init__(self)
         InfoBarNotifications.__init__(self)
 
-        isEmpty = lambda x: x is None or len(x)==0 or x == "None"
+        isEmpty = lambda x: x is None or len(x) == 0 or x == "None"
         if isEmpty(chName): chName = "Unknown"
         if isEmpty(chURL):  chURL  = "Unknown"
         if isEmpty(chIcon): chIcon = "default.png"
@@ -195,19 +195,19 @@ class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
         currPlay = self.session.nav.getCurrentService()
         sAudioType = currPlay.info().getInfoString(iServiceInformation.sUser + 10)
         print "[__evAudioDecodeError] audio-codec %s can't be decoded by hardware" % (sAudioType)
-        self.session.open(MessageBox, _("This receiver can't decode %s streams!") % sAudioType, type=MessageBox.TYPE_INFO, timeout=20)
+        self.session.open(MessageBox, _("This receiver can't decode %s streams!") % sAudioType, type=MessageBox.TYPE_INFO, timeout=10)
 
     def __evVideoDecodeError(self):
         currPlay = self.session.nav.getCurrentService()
         sVideoType = currPlay.info().getInfoString(iServiceInformation.sVideoType)
         print "[__evVideoDecodeError] video-codec %s can't be decoded by hardware" % (sVideoType)
-        self.session.open(MessageBox, _("This receiver can't decode %s streams!") % sVideoType, type=MessageBox.TYPE_INFO, timeout=20)
+        self.session.open(MessageBox, _("This receiver can't decode %s streams!") % sVideoType, type=MessageBox.TYPE_INFO, timeout=10)
 
     def __evPluginError(self):
         currPlay = self.session.nav.getCurrentService()
         message = currPlay.info().getInfoString(iServiceInformation.sUser + 12)
         print "[__evPluginError]" , message
-        self.session.open(MessageBox, message, type=MessageBox.TYPE_INFO, timeout=20)
+        self.session.open(MessageBox, message, type=MessageBox.TYPE_INFO, timeout=10)
 
     def __setHideTimer(self):
         self.hidetimer.start(5000)
@@ -526,11 +526,11 @@ class GreekStreamTVList(Screen):
             except Exception as err:
                 print "[GreekStreamTVList::keyOK::Exception] Error: ", err
                 tmpMessage = _("An error occured: ") + str(err)[:200] + "..."
-                self.session.openWithCallback(self.stopPlayer, MessageBox, tmpMessage, type=MessageBox.TYPE_ERROR, timeout=20)
+                self.session.openWithCallback(self.stopPlayer, MessageBox, tmpMessage, type=MessageBox.TYPE_ERROR, timeout=10)
         else:
             print "[GreekStreamTVList::keyOK] Unknown Protocol: ", protocol
             tmpMessage = _("Unknown protocol: ") + protocol
-            self.session.openWithCallback(self.stopPlayer, MessageBox, tmpMessage, type=MessageBox.TYPE_WARNING, timeout=20)
+            self.session.openWithCallback(self.stopPlayer, MessageBox, tmpMessage, type=MessageBox.TYPE_WARNING, timeout=10)
 
     def QualitySelClosed(self, recursive):
         if self.qsel:
@@ -553,7 +553,7 @@ class GreekStreamTVList(Screen):
                 fd.close()
             print "[GreekStreamTVList::streamPreBuffer::Exception] Error: ", err
             tmpMessage = _("An error occured while buffering: ") + str(err)[:200] + "..."
-            self.session.openWithCallback(self.stopPlayer, MessageBox, tmpMessage, type=MessageBox.TYPE_ERROR, timeout=20)
+            self.session.openWithCallback(self.stopPlayer, MessageBox, tmpMessage, type=MessageBox.TYPE_ERROR, timeout=10)
 
     def streamCopy(self, fd, prebuffer):
         print "[GreekStreamTVList::streamCopy]"
@@ -582,7 +582,7 @@ class GreekStreamTVList(Screen):
 
     def LivestreamerStop(self):
         print "[GreekStreamTVList::LivestreamStop]"
-        self["info"].setText("...")
+        self.showName()
         self.keyLocked = False
         self.playerStoped = True
         os.system("killall -9 rtmpdump")
