@@ -40,7 +40,7 @@ def autostart(reason, **kwargs):
 
 def Plugins(**kwargs):
     return PluginDescriptor(
-        name="GreekStreamTV",
+        name=_("GreekStreamTV"),
         where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU],
         description=_("Watch live stream TV"),
         icon="plugin.png",
@@ -156,7 +156,7 @@ class GSMenu(Screen):
         self.session.openWithCallback(self.depends, MessageBox, msg, MessageBox.TYPE_YESNO)
 
     def blue(self):
-        msg = _("For information or questions please refer to www.satdreamgr.com forum.")
+        msg = _("For information or questions please refer to the www.satdreamgr.com forum.")
         msg += "\n\n"
         msg += _("GreekStreamTV is free.")
         self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
