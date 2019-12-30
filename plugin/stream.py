@@ -20,6 +20,7 @@ from time import sleep
 from thread import start_new_thread
 from xml.etree.cElementTree import ElementTree
 
+from . import _
 from enigma import eTimer, ePicLoad, loadPNG, eServiceReference, iPlayableService, iServiceInformation
 from enigma import gFont, eListboxPythonMultiContent, RT_HALIGN_LEFT, RT_VALIGN_CENTER
 from Plugins.Plugin import PluginDescriptor
@@ -29,7 +30,6 @@ from Screens.InfoBarGenerics import InfoBarAudioSelection, InfoBarNotifications
 from skin import parseFont
 from Components.Label import Label
 from Components.ActionMap import ActionMap
-from Components.config import config
 from Components.GUIComponent import GUIComponent
 from Components.MenuList import MenuList
 from Components.MultiContent import MultiContentEntryText, MultiContentEntryPixmapAlphaBlend
@@ -39,17 +39,7 @@ from Components.Sources.StaticText import StaticText
 from Components.ServiceEventTracker import ServiceEventTracker
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_CURRENT_PLUGIN, SCOPE_CURRENT_SKIN
 from Tools.LoadPixmap import LoadPixmap
-
 from livestreamer import Livestreamer
-
-import gettext
-
-
-try:
-    cat = gettext.translation("GreekStreamTV", "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/locale", [config.osd.language.getText()])
-    _ = cat.gettext
-except IOError:
-    pass
 
 
 PLUGIN_PATH = resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV")

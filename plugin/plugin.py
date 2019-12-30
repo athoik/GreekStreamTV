@@ -1,22 +1,13 @@
 from os import path, listdir
 
+from . import _
 from Plugins.Plugin import PluginDescriptor
 from Components.MenuList import MenuList
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap
-from Components.config import config
 from Components.Sources.StaticText import StaticText
 from Screens.Console import Console
-
-import gettext
-
-
-try:
-    cat = gettext.translation("GreekStreamTV", "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/locale", [config.osd.language.getText()])
-    _ = cat.gettext
-except IOError:
-    pass
 
 
 url_sc = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/update.sh"
