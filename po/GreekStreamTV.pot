@@ -1,0 +1,141 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: GreekStreamTV\n"
+"POT-Creation-Date: 2019-12-31 01:29+0200\n"
+"PO-Revision-Date: 2019-12-31 01:28+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Poedit-Basepath: ../plugin\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: plugin.py:34 plugin.py:58 plugin.py:67
+msgid "GreekStreamTV"
+msgstr ""
+
+#: plugin.py:36 stream.py:650
+msgid "Watch live stream TV"
+msgstr ""
+
+#: plugin.py:60
+msgid "Close"
+msgstr ""
+
+#: plugin.py:61
+msgid "Select"
+msgstr ""
+
+#: plugin.py:62
+msgid "Install dependencies"
+msgstr ""
+
+#: plugin.py:63
+msgid "About"
+msgstr ""
+
+#: plugin.py:69
+msgid "Update stations"
+msgstr ""
+
+#: plugin.py:71
+msgid "Update bouquet"
+msgstr ""
+
+#: plugin.py:95
+msgid "Error loading plugin!"
+msgstr ""
+
+#: plugin.py:97
+msgid "Error: "
+msgstr ""
+
+#: plugin.py:99
+msgid "Installing the necessary dependencies might solve the problem..."
+msgstr ""
+
+#: plugin.py:102
+msgid "Do you really want to update the list of stations?"
+msgstr ""
+
+#: plugin.py:110
+msgid "GreekStreamTV bouquet updated successfully..."
+msgstr ""
+
+#: plugin.py:113
+msgid "GreekStreamTV bouquet update failed..."
+msgstr ""
+
+#: plugin.py:139
+msgid "Updating"
+msgstr ""
+
+#: plugin.py:143
+msgid "Installing"
+msgstr ""
+
+#: plugin.py:146
+msgid "Do you really want to install the necessary software dependencies?"
+msgstr ""
+
+#: plugin.py:150
+msgid "For information or questions please refer to the www.satdreamgr.com forum."
+msgstr ""
+
+#: plugin.py:152
+msgid "GreekStreamTV is free."
+msgstr ""
+
+#: stream.py:58
+msgid "Select quality"
+msgstr ""
+
+#: stream.py:74
+msgid "Please wait..."
+msgstr ""
+
+#: stream.py:189 stream.py:195
+#, python-format
+msgid "This receiver can't decode %s streams!"
+msgstr ""
+
+#: stream.py:385
+msgid "GreekStreamTV list"
+msgstr ""
+
+#: stream.py:387
+msgid "Cancel"
+msgstr ""
+
+#: stream.py:388
+msgid "Play"
+msgstr ""
+
+#: stream.py:472
+#, python-format
+msgid ""
+"Starting %s\n"
+"\n"
+"Please wait..."
+msgstr ""
+
+#: stream.py:521
+msgid "An error occured: "
+msgstr ""
+
+#: stream.py:525
+msgid "Unknown protocol: "
+msgstr ""
+
+#: stream.py:548
+msgid "An error occured while buffering: "
+msgstr ""
+
+#: stream.py:649
+msgid "GreekStreamTV player"
+msgstr ""
