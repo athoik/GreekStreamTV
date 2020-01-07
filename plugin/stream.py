@@ -290,7 +290,7 @@ class StreamList(MenuList):
 
         # default skin parameters
         self.serviceNameFont = gFont("Regular", 22)
-        self.serviceUrlFont = gFont("Regular", 18)
+        self.serviceUrlFont = gFont("Regular", 20)
         self.itemHeight = 37
         self.serviceNamePosition = (45,0)
         self.serviceNameSize = (300,37)
@@ -370,14 +370,15 @@ class StreamList(MenuList):
 
 
 class GreekStreamTVList(Screen):
+
     skin = """
-         <screen name="GreekStreamTVList" position="center,center" size="560,430" title="GreekStreamTV list">
-            <ePixmap pixmap="buttons/red.png" position="0,0" size="140,40" alphatest="on"/>
-            <ePixmap pixmap="buttons/green.png" position="140,0" size="140,40" alphatest="on"/>
-            <widget source="key_red" render="Label" position="0,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1"/>
-            <widget source="key_green" render="Label" position="140,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1"/>
-            <widget name="streamlist" position="10,50" size="540,320" zPosition="10" scrollbarMode="showOnDemand"/>
-            <widget name="info" position="10,380" zPosition="2" size="540,35" font="Regular;22" transparent="1" halign="center" valign="center"/>
+        <screen name="GreekStreamTVList" position="center,center" size="3*e/4,3*e/4" title="GreekStreamTV list">
+            <widget name="streamlist" position="0,10" size="e,e-100" itemHeight="40" scrollbarMode="showOnDemand"/>
+            <widget name="info" position="0,e-80" size="e,40" font="Regular;20" halign="center" valign="center"/>
+            <ePixmap pixmap="buttons/key_red.png" position="0,e-40" size="40,40" alphatest="blend"/>
+            <ePixmap pixmap="buttons/key_green.png" position="e/4,e-40" size="40,40" alphatest="blend"/>
+            <widget source="key_red" render="Label" position="40,e-40" size="e/4-40,40" font="Regular;20" valign="center"/>
+            <widget source="key_green" render="Label" position="e/4+40,e-40" size="e/4-40,40" font="Regular;20" valign="center"/>
         </screen>"""
 
     def __init__(self, session, streamFile=None):
