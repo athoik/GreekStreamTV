@@ -19,7 +19,7 @@ from thread import start_new_thread
 from xml.etree.cElementTree import ElementTree
 
 from . import _
-from enigma import eTimer, ePicLoad, loadPNG, eServiceReference, iPlayableService, iServiceInformation
+from enigma import eTimer, ePicLoad, eServiceReference, iPlayableService, iServiceInformation
 from enigma import gFont, eListboxPythonMultiContent, RT_HALIGN_LEFT, RT_VALIGN_CENTER
 from Plugins.Plugin import PluginDescriptor
 from Screens.Screen import Screen
@@ -47,23 +47,22 @@ path.append(PLUGIN_PATH)
 class SelectQuality(Screen):
     skin = """
         <screen name="SelectQuality" position="center,center" size="280,180" title="Select quality">
-            <widget name="menu" itemHeight="35" position="0,0" size="270,130" scrollbarMode="showOnDemand" transparent="1" zPosition="9"/>
-            <widget name="info" position="0,135" zPosition="2" size="270,40" font="Regular;22" foregroundColor="#ffffff" transparent="1" halign="center" valign="center"/>
-        </screen>
-        """
+            <widget name="menu" position="0,0" size="270,120" itemHeight="40" font="Body" textOffset="10,0" scrollbarMode="showOnDemand"/>
+            <widget name="info" position="0,140" size="270,40" font="Body" halign="center" valign="center"/>
+        </screen>"""
 
     def __init__(self, session, streams, selectedFunc, enableWrapAround=False):
         Screen.__init__(self, session)
         self.setTitle(_("Select quality"))
-        self.session = session
         self["info"] = Label("...")
         self.selectedFunc = selectedFunc
         menu = [ (str(sn[0]), sn[1]) for sn in streams.items() ]
         self["menu"] = MenuList(menu, enableWrapAround)
-        self["actions"] = ActionMap(["OkCancelActions"], {
+        self["actions"] = ActionMap(["OkCancelActions"],
+        {
             "ok": self.okbuttonClick,
             "cancel": self.cancelClick
-        })
+        }, -1)
 
     def getCurrent(self):
         cur = self["menu"].getCurrent()
@@ -91,16 +90,15 @@ class SelectQuality(Screen):
 
 class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
     skin = """
-        <screen name="GreekStreamTVPlayer" flags="wfNoBorder" position="0,570" size="1280,190" title="GreekStreamTV player" backgroundColor="#41000000">
-            <ePixmap position="80,25" size="117,72" pixmap="%s/channel_background.png" zPosition="-1" transparent="1" alphatest="blend"/>
-            <widget name="channel_icon" position="121,43" zPosition="10" size="35,35" backgroundColor="#41000000"/>
-            <widget name="channel_name" position="250,20" size="650,40" font="Regular;36" halign="left" valign="center" foregroundColor="#ffffff" backgroundColor="#41000000"/>
-            <widget name="channel_uri" position="250,70" size="950,60" font="Regular;22" halign="left" valign="top" foregroundColor="#ffffff" backgroundColor="#41000000"/>
-            <widget source="session.CurrentService" render="Label" position="805,20" size="300,40" font="Regular;30" halign="right" valign="center" foregroundColor="#f4df8d" backgroundColor="#41000000" transparent="1">
+        <screen name="GreekStreamTVPlayer" flags="wfNoBorder" position="center, e-120" size="e,120" title="GreekStreamTV player">
+            <ePixmap position="40,25" size="117,72" pixmap="%s/channel_background.png" zPosition="-1" alphatest="blend"/>
+            <widget name="channel_icon" position="81,43" zPosition="10" size="35,35"/>
+            <widget name="channel_name" position="center,20" size="e-400,40" font="Body" halign="center" valign="center"/>
+            <widget name="channel_uri" position="center,70" size="e-400,30" font="Regular;22" halign="center" valign="center"/>
+            <widget source="session.CurrentService" render="Label" position="e-160,20" size="120,40" font="Body" halign="right" valign="center">
                 <convert type="ServicePosition">Position,ShowHours</convert>
             </widget>
-        </screen>
-        """ % (PLUGIN_PATH)
+        </screen>""" % (PLUGIN_PATH)
 
     PLAYER_IDLE    = 0
     PLAYER_PLAYING = 1
@@ -116,14 +114,16 @@ class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
         if isEmpty(chURL):  chURL  = "Unknown"
         if isEmpty(chIcon): chIcon = "default.png"
         chIcon = "%s/icons/%s" % (PLUGIN_PATH, chIcon)
-        self.session = session
         self.service = service
         self.stopPlayer = stopPlayer
 
         self.setTitle(chName)
+        self["channel_icon"] = Pixmap()
+        self["channel_name"] = Label(chName)
+        self["channel_uri"]  = Label(chURL)
 
-        self["actions"] = ActionMap(["OkCancelActions", "InfobarSeekActions",
-                                     "MediaPlayerActions", "MovieSelectionActions"], {
+        self["actions"] = ActionMap(["OkCancelActions", "InfobarSeekActions", "MediaPlayerActions", "MovieSelectionActions"],
+        {
             "ok": self.doInfoAction,
             "cancel": self.doExit,
             "stop": self.doExit,
@@ -148,12 +148,8 @@ class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
         self.onClose.append(self.__onClose)
         self.doPlay()
 
-        self["channel_icon"] = Pixmap()
-        self["channel_name"] = Label(chName)
-        self["channel_uri"]  = Label(chURL)
-
         self.picload = ePicLoad()
-        self.scale   = AVSwitch().getFramebufferScale()
+        self.scale = AVSwitch().getFramebufferScale()
         self.picload.PictureData.get().append(self.cbDrawChannelIcon)
         self.picload.setPara((35, 35, self.scale[0], self.scale[1], False, 0, "#00000000"))
         self.picload.startDecode(chIcon)
@@ -638,16 +634,3 @@ class GreekStreamTVList(Screen):
             print "[GreekStreamTV::makeStreamList] Error: ", err
             streamDB = []
         self.streamList = [ (x.get("name"), x) for x in streamDB ]
-
-
-def main(session, **kwargs):
-    session.open(GreekStreamTVList, kwargs['streamFile'])
-
-
-def Plugins(**kwargs):
-    return PluginDescriptor(
-        name=_("GreekStreamTV player"),
-        description=_("Watch live stream TV"),
-        where=PluginDescriptor.WHERE_PLUGINMENU,
-        fnc=main,
-        icon="plugin.png")
