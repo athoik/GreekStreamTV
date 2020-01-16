@@ -11,7 +11,6 @@ from Screens.Console import Console
 
 
 url_sc = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/update.sh"
-url_pd = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/depends.sh"
 
 GSXML = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/stream.xml"
 GSBQ = "/etc/enigma2/userbouquet.greekstreamtv.tv"
@@ -59,7 +58,7 @@ class GSMenu(Screen):
 
         self["key_red"] = StaticText(_("Close"))
         self["key_green"] = StaticText(_("Select"))
-        self["key_yellow"] = StaticText(_("Install dependencies"))
+        #self["key_yellow"] = StaticText()
         self["key_blue"] = StaticText(_("About"))
 
         menu = []
@@ -77,7 +76,7 @@ class GSMenu(Screen):
             "red": self.close,
             "ok": self.go,
             "green": self.go,
-            "yellow": self.yellow,
+            #"yellow": self.yellow,
             "blue": self.blue,
         }, -1)
 
@@ -137,14 +136,6 @@ class GSMenu(Screen):
     def update(self, answer):
         if answer:
             self.session.open(Console, _("Updating"), ["%s update" % url_sc], showStartStopText=False)
-
-    def depends(self, answer):
-        if answer:
-            self.session.open(Console, _("Installing"), ["%s update" % url_pd], showStartStopText=False)
-
-    def yellow(self):
-        msg = _("Do you really want to install the necessary software dependencies?")
-        self.session.openWithCallback(self.depends, MessageBox, msg, MessageBox.TYPE_YESNO)
 
     def blue(self):
         msg = _("For information or questions please refer to the www.satdreamgr.com forum.")
