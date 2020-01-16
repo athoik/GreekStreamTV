@@ -17,15 +17,7 @@ GSBQ = "/etc/enigma2/userbouquet.greekstreamtv.tv"
 
 
 def main(session, **kwargs):
-    try:
-        session.open(GSMenu)
-    except:
-        print "[GreekStreamTV] Plugin execution failed"
-
-
-def autostart(reason, **kwargs):
-    if reason == 0:
-        print "[GreekStreamTV] no autostart"
+    session.open(GSMenu)
 
 
 def Plugins(**kwargs):
@@ -62,12 +54,11 @@ class GSMenu(Screen):
         self["key_blue"] = StaticText(_("About"))
 
         menu = []
-        if path.isdir("/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV"):
-            menu.append((_("GreekStreamTV"), GSXML))
-            menu.extend(self.getStreams())
-            menu.append((_("Update stations"), "update"))
-            if path.isfile(GSBQ):
-                menu.append((_("Update bouquet"), "updatebq"))
+        menu.append((_("GreekStreamTV"), GSXML))
+        menu.extend(self.getStreams())
+        menu.append((_("Update stations"), "update"))
+        if path.isfile(GSBQ):
+            menu.append((_("Update bouquet"), "updatebq"))
 
         self["menu"] = MenuList(menu)
         self["actions"] = ActionMap(["ColorActions", "OkCancelActions"],
