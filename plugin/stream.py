@@ -11,11 +11,9 @@ http://code.google.com/p/archivy-czsk/source/browse/trunk/engine/player/player.p
 
 """
 
-from sys import path
-path.append("/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV")
-
 import os
 import ssl
+from sys import path
 from time import sleep
 from thread import start_new_thread
 from xml.etree.cElementTree import ElementTree
@@ -43,6 +41,7 @@ from livestreamer import Livestreamer
 
 
 PLUGIN_PATH = resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV")
+path.append(PLUGIN_PATH)
 
 
 class SelectQuality(Screen):
@@ -453,8 +452,8 @@ class GreekStreamTVList(Screen):
 
     def keyCancel(self):
         self.LivestreamerStop()
-        if "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV" in path:
-            path.remove("/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV")
+        if PLUGIN_PATH in path:
+            path.remove(PLUGIN_PATH)
         self.close()
 
     def showName(self):
