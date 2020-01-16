@@ -8,11 +8,10 @@ from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
 from Screens.Console import Console
+from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 
 
-url_sc = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/update.sh"
-
-GSXML = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/stream.xml"
+GSXML = resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV/stream.xml")
 GSBQ = "/etc/enigma2/userbouquet.greekstreamtv.tv"
 
 
@@ -123,7 +122,8 @@ class GSMenu(Screen):
     def yellow(self):
         def updateCb(answer):
             if answer is True:
-                self.session.open(Console, _("Updating"), ["%s update" % url_sc], showStartStopText=False)
+                cmd = "{0}/update.sh {0}".format(resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV"))
+                self.session.open(Console, _("Updating stations"), [cmd], showStartStopText=False)
         msg = _("Do you really want to update the list of stations?")
         self.session.openWithCallback(updateCb, MessageBox, msg, MessageBox.TYPE_YESNO)
 
@@ -134,7 +134,7 @@ class GSMenu(Screen):
         self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
 
     def getStreams(self):
-        xml = "/usr/lib/enigma2/python/Plugins/Extensions/GreekStreamTV/xml"
+        xml = resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV/xml")
         list = []
         if path.isdir(xml):
             for file in listdir(xml):
