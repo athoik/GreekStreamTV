@@ -1,6 +1,5 @@
-from os import path, listdir
-
 from . import _
+from stream import GreekStreamTVList
 from Plugins.Plugin import PluginDescriptor
 from Components.MenuList import MenuList
 from Screens.Screen import Screen
@@ -9,23 +8,11 @@ from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
 from Screens.Console import Console
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
+from os import path, listdir
 
 
 GSXML = resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV/stream.xml")
 GSBQ = "/etc/enigma2/userbouquet.greekstreamtv.tv"
-
-
-def main(session, **kwargs):
-    session.open(GSMenu)
-
-
-def Plugins(**kwargs):
-    return PluginDescriptor(
-        name=_("GreekStreamTV"),
-        where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU],
-        description=_("Watch live stream TV"),
-        icon="plugin.png",
-        fnc=main)
 
 
 class GSMenu(Screen):
@@ -74,17 +61,15 @@ class GSMenu(Screen):
             choice = self["menu"].getCurrent()[1]
             if choice.endswith(".xml"):
                 try:
-                    from Plugins.Extensions.GreekStreamTV.stream import main
-                    main(self.session, streamFile = choice)
+                    self.session.open(GreekStreamTVList, streamFile=choice)
                 except Exception as err:
-                    print "[GreekStreamTV::PluginMenu] Exception: ", str(err)
+                    print "[GreekStreamTV] Exception: ", str(err)
                     import traceback
                     traceback.print_exc()
                     msg = _("Error loading plugin!")
                     msg += "\n\n"
                     msg += _("Error: ")
-                    msg += str(err)[:200] + "...\n"
-                    msg += _("Installing the necessary dependencies might solve the problem...")
+                    msg += str(err)[:200]
                     self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
             elif choice == "updatebq":
                 try:
@@ -94,7 +79,7 @@ class GSMenu(Screen):
                     eDVBDB.getInstance().reloadServicelist()
                     tmpMessage = _("GreekStreamTV bouquet updated successfully...")
                 except Exception as err:
-                    print "[GreekStreamTV::PluginMenu] Exception: ", str(err)
+                    print "[GreekStreamTV] Exception: ", str(err)
                     tmpMessage = _("GreekStreamTV bouquet update failed...")
                 self.session.open(MessageBox, tmpMessage, MessageBox.TYPE_INFO)
 
@@ -142,3 +127,16 @@ class GSMenu(Screen):
                     list.append((path.splitext(file)[0].title().replace("_", " "), path.join(xml, file)))
 
         return list
+
+
+def main(session, **kwargs):
+    session.open(GSMenu)
+
+
+def Plugins(**kwargs):
+    return PluginDescriptor(
+        name=_("GreekStreamTV"),
+        where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU],
+        description=_("Watch live stream TV"),
+        icon="plugin.png",
+        fnc=main)
