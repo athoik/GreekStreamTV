@@ -50,24 +50,23 @@ class GSMenu(Screen):
 
         self["key_red"] = StaticText(_("Close"))
         self["key_green"] = StaticText(_("Select"))
-        #self["key_yellow"] = StaticText()
+        self["key_yellow"] = StaticText(_("Update stations"))
         self["key_blue"] = StaticText(_("About"))
 
         menu = []
         menu.append((_("GreekStreamTV"), GSXML))
         menu.extend(self.getStreams())
-        menu.append((_("Update stations"), "update"))
         if path.isfile(GSBQ):
             menu.append((_("Update bouquet"), "updatebq"))
-
         self["menu"] = MenuList(menu)
+
         self["actions"] = ActionMap(["ColorActions", "OkCancelActions"],
         {
             "cancel": self.close,
             "red": self.close,
             "ok": self.go,
             "green": self.go,
-            #"yellow": self.yellow,
+            "yellow": self.yellow,
             "blue": self.blue,
         }, -1)
 
@@ -88,9 +87,6 @@ class GSMenu(Screen):
                     msg += str(err)[:200] + "...\n"
                     msg += _("Installing the necessary dependencies might solve the problem...")
                     self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
-            elif choice == "update":
-                msg = _("Do you really want to update the list of stations?")
-                self.session.openWithCallback(self.update, MessageBox, msg, MessageBox.TYPE_YESNO)
             elif choice == "updatebq":
                 try:
                     self.updatebq()
@@ -124,9 +120,12 @@ class GSMenu(Screen):
             for (name, service) in tvlist:
                 f.write(service)
 
-    def update(self, answer):
-        if answer:
-            self.session.open(Console, _("Updating"), ["%s update" % url_sc], showStartStopText=False)
+    def yellow(self):
+        def updateCb(answer):
+            if answer is True:
+                self.session.open(Console, _("Updating"), ["%s update" % url_sc], showStartStopText=False)
+        msg = _("Do you really want to update the list of stations?")
+        self.session.openWithCallback(updateCb, MessageBox, msg, MessageBox.TYPE_YESNO)
 
     def blue(self):
         msg = _("For information or questions please refer to the www.satdreamgr.com forum.")
