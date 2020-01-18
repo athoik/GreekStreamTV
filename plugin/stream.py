@@ -91,7 +91,7 @@ class SelectQuality(Screen):
 class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
     skin = """
         <screen name="GreekStreamTVPlayer" flags="wfNoBorder" position="center, e-120" size="e,120" title="GreekStreamTV player">
-            <ePixmap position="40,25" size="117,72" pixmap="%s/channel_background.png" zPosition="-1" alphatest="blend"/>
+            <ePixmap position="40,25" size="117,72" pixmap="%s/icons/channel_background.png" zPosition="-1" alphatest="blend"/>
             <widget name="channel_icon" position="81,43" zPosition="10" size="35,35"/>
             <widget name="channel_name" position="center,20" size="e-400,40" font="Body" halign="center" valign="center"/>
             <widget name="channel_uri" position="center,70" size="e-400,30" font="Regular;22" halign="center" valign="center"/>
