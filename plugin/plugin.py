@@ -87,7 +87,7 @@ class GSMenu(Screen):
             if answer is True:
                 cmd = "{0}/create.sh".format(resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV"))
                 self.session.open(Console, _("Creating bouquet"), [cmd], finishedCallback=self.updatebq, closeOnSuccess=True, showStartStopText=False)
-        msg = _("Do you really want to add a GreekStreamTV bouquet in your favourites?")
+        msg = _("Do you really want to add the GreekStreamTV bouquet in your favourites?")
         self.session.openWithCallback(createbqCallBack, MessageBox, msg, MessageBox.TYPE_YESNO)
 
     def updatebq(self):
