@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GreekStreamTV\n"
-"POT-Creation-Date: 2019-12-31 01:29+0200\n"
-"PO-Revision-Date: 2019-12-31 01:29+0200\n"
+"POT-Creation-Date: 2020-01-18 20:38+0200\n"
+"PO-Revision-Date: 2020-01-18 20:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: SatDreamGr\n"
 "Language: el\n"
@@ -13,108 +13,104 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: plugin.py:34 plugin.py:58 plugin.py:67
+#: plugin.py:35 plugin.py:46 plugin.py:153
 msgid "GreekStreamTV"
 msgstr "GreekStreamTV"
 
-#: plugin.py:36 stream.py:650
-msgid "Watch live stream TV"
-msgstr "Παρακολουθείστε ζωντανή διαδικτυακή τηλεόραση"
-
-#: plugin.py:60
+#: plugin.py:37
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: plugin.py:61
+#: plugin.py:38
 msgid "Select"
 msgstr "Επιλογή"
 
-#: plugin.py:62
-msgid "Install dependencies"
-msgstr "Εγκατάσταση προαπαιτούμενων"
+#: plugin.py:40 plugin.py:128
+msgid "Update bouquet"
+msgstr "Ενημέρωση μπουκέτου"
 
-#: plugin.py:63
+#: plugin.py:42
+msgid "Create bouquet"
+msgstr "Δημιουργία μπουκέτου"
+
+#: plugin.py:43
 msgid "About"
 msgstr "Περί"
 
-#: plugin.py:69
+#: plugin.py:48
 msgid "Update stations"
 msgstr "Ενημέρωση σταθμών"
 
 #: plugin.py:71
-msgid "Update bouquet"
-msgstr "Ενημέρωση μπουκέτου"
-
-#: plugin.py:95
 msgid "Error loading plugin!"
 msgstr "Σφάλμα φόρτωσης επέκτασης!"
 
-#: plugin.py:97
+#: plugin.py:73
 msgid "Error: "
 msgstr "Σφάλμα: "
 
-#: plugin.py:99
-msgid "Installing the necessary dependencies might solve the problem..."
-msgstr "Η εγκατάσταση του προαπαιτούμενου λογισμκού ίσως λύσει το πρόβλημα..."
-
-#: plugin.py:102
+#: plugin.py:77
 msgid "Do you really want to update the list of stations?"
 msgstr "Είστε βέβαιοι ότι θέλετε να ενημερώσετε τη λίστα σταθμών;"
 
-#: plugin.py:110
-msgid "GreekStreamTV bouquet updated successfully..."
-msgstr "Η ενημέρωση του μπουκέτου GreekStreamTV ολοκληρώθηκε με επιτυχία..."
+#: plugin.py:83
+msgid "Updating stations"
+msgstr "Ενημέρωση σταθμών"
 
-#: plugin.py:113
-msgid "GreekStreamTV bouquet update failed..."
-msgstr "Η ενημέρωση του μπουκέτου GreekStreamTV απέτυχε..."
+#: plugin.py:89
+msgid "Creating bouquet"
+msgstr "Δημιουργία μπουκέτου"
 
-#: plugin.py:139
-msgid "Updating"
-msgstr "Ενημέρωση"
+#: plugin.py:90
+msgid "Do you really want to add the GreekStreamTV bouquet in your favourites?"
+msgstr "Είστε βέβαιοι ότι θέλετε να προσθέσετε το μπουκέτο GreekStreamTV στα αγαπημένα;"
 
-#: plugin.py:143
-msgid "Installing"
-msgstr "Εγκατάσταση"
+#: plugin.py:116
+msgid "GreekStreamTV bouquet updated successfully."
+msgstr "Η ενημέρωση του μπουκέτου GreekStreamTV ολοκληρώθηκε με επιτυχία."
 
-#: plugin.py:146
-msgid "Do you really want to install the necessary software dependencies?"
-msgstr "Είστε βέβαιοι ότι θέλετε να εγκαταστήσετε το απαιτούμενο λογισμικό;"
+#: plugin.py:120
+msgid "GreekStreamTV bouquet update failed."
+msgstr "Η ενημέρωση του μπουκέτου GreekStreamTV απέτυχε."
 
-#: plugin.py:150
+#: plugin.py:131
 msgid "For information or questions please refer to the www.satdreamgr.com forum."
 msgstr "Για πληροφορίες ή ερωτήσεις ανατρέξτε στο www.satdreamgr.com."
 
-#: plugin.py:152
+#: plugin.py:133
 msgid "GreekStreamTV is free."
 msgstr "Το GreekStreamTV είναι δωρεάν."
 
-#: stream.py:58
+#: plugin.py:155
+msgid "Watch live stream TV"
+msgstr "Παρακολουθείστε ζωντανή διαδικτυακή τηλεόραση"
+
+#: stream.py:56
 msgid "Select quality"
 msgstr "Επιλογή ποιότητας"
 
-#: stream.py:74
+#: stream.py:72
 msgid "Please wait..."
 msgstr "Παρακαλώ περιμένετε..."
 
-#: stream.py:189 stream.py:195
+#: stream.py:184 stream.py:190
 #, python-format
 msgid "This receiver can't decode %s streams!"
 msgstr "Αυτός ο δέκτης δεν μπορεί να αποκωδικοποιήσει %s ροές!"
 
-#: stream.py:385
+#: stream.py:381
 msgid "GreekStreamTV list"
 msgstr "Λίστα GreekStreamTV"
 
-#: stream.py:387
+#: stream.py:383
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: stream.py:388
+#: stream.py:384
 msgid "Play"
 msgstr "Αναπαραγωγή"
 
-#: stream.py:472
+#: stream.py:468
 #, python-format
 msgid ""
 "Starting %s\n"
@@ -125,18 +121,14 @@ msgstr ""
 "\n"
 "Παρακαλώ περιμένετε..."
 
-#: stream.py:521
+#: stream.py:517
 msgid "An error occured: "
 msgstr "Ένα σφάλμα παρουσιάστηκε: "
 
-#: stream.py:525
+#: stream.py:521
 msgid "Unknown protocol: "
 msgstr "Άγνωστο πρωτόκολλο: "
 
-#: stream.py:548
+#: stream.py:544
 msgid "An error occured while buffering: "
 msgstr "Ένα σφάλμα παρουσιάστηκε κατά την φόρτωση: "
-
-#: stream.py:649
-msgid "GreekStreamTV player"
-msgstr "Αναπαραγωγή GreekStreamTV"
