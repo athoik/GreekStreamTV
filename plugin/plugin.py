@@ -36,14 +36,16 @@ class GSMenu(Screen):
 
         self["key_red"] = StaticText(_("Close"))
         self["key_green"] = StaticText(_("Select"))
-        self["key_yellow"] = StaticText(_("Update stations"))
+        if path.isfile(GSBQ):
+            self["key_yellow"] = StaticText(_("Update bouquet"))
+        else:
+            self["key_yellow"] = StaticText(_("Create bouquet"))
         self["key_blue"] = StaticText(_("About"))
 
         menu = []
         menu.append((_("GreekStreamTV"), GSXML))
         menu.extend(self.getStreams())
-        if path.isfile(GSBQ):
-            menu.append((_("Update bouquet"), "updatebq"))
+        menu.append((_("Update stations"), "update"))
         self["menu"] = MenuList(menu)
 
         self["actions"] = ActionMap(["ColorActions", "OkCancelActions"],
@@ -71,46 +73,59 @@ class GSMenu(Screen):
                     msg += _("Error: ")
                     msg += str(err)[:200]
                     self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
-            elif choice == "updatebq":
-                try:
-                    self.updatebq()
-                    from enigma import eDVBDB
-                    eDVBDB.getInstance().reloadBouquets()
-                    eDVBDB.getInstance().reloadServicelist()
-                    tmpMessage = _("GreekStreamTV bouquet updated successfully...")
-                except Exception as err:
-                    print "[GreekStreamTV] Exception: ", str(err)
-                    tmpMessage = _("GreekStreamTV bouquet update failed...")
-                self.session.open(MessageBox, tmpMessage, MessageBox.TYPE_INFO)
+            elif choice == "update":
+                msg = _("Do you really want to update the list of stations?")
+                self.session.openWithCallback(self.updateStations, MessageBox, msg, MessageBox.TYPE_YESNO)
+
+    def updateStations(self, answer):
+        if answer is True:
+            cmd = "{0}/update.sh {0}".format(resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV"))
+            self.session.open(Console, _("Updating stations"), [cmd], showStartStopText=False)
+
+    def createbq(self):
+        def createbqCallBack(answer):
+            if answer is True:
+                cmd = "{0}/create.sh".format(resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV"))
+                self.session.open(Console, _("Creating bouquet"), [cmd], finishedCallback=self.updatebq, closeOnSuccess=True, showStartStopText=False)
+        msg = _("Do you really want to add a GreekStreamTV bouquet in your favourites?")
+        self.session.openWithCallback(createbqCallBack, MessageBox, msg, MessageBox.TYPE_YESNO)
 
     def updatebq(self):
-        from xml.etree.cElementTree import ElementTree
-        tree = ElementTree()
-        tree.parse(GSXML)
-        tvlist = []
-        for iptv in tree.findall("iptv"):
-            name = iptv.findtext("name").title()
-            (protocol, serviceType, bufferSize, epgId) = iptv.findtext("type").split(":")
-            uri = iptv.findtext("uri")
-            if protocol in "livestreamer":
-                uri = "http://localhost:88/" + uri
-            uri = uri.replace(":", "%3a")
-            service = "#SERVICE {s}:0:1:{e}:{e}:0:0:0:0:0:{u}:{n}\n".format(s=serviceType, e=epgId, u=uri, n=name)
-            tvlist.append((name,service))
-
-        tvlist = sorted(tvlist, key=lambda channel: channel[0]) # sort by name
-        with open(GSBQ, "w") as f:
-            f.write("#NAME GreekStreamTV\n")
-            for (name, service) in tvlist:
-                f.write(service)
+        try:
+            from xml.etree.cElementTree import ElementTree
+            tree = ElementTree()
+            tree.parse(GSXML)
+            tvlist = []
+            for iptv in tree.findall("iptv"):
+                name = iptv.findtext("name").title()
+                (protocol, serviceType, bufferSize, epgId) = iptv.findtext("type").split(":")
+                uri = iptv.findtext("uri")
+                if protocol in "livestreamer":
+                    uri = "http://localhost:88/" + uri
+                uri = uri.replace(":", "%3a")
+                service = "#SERVICE {s}:0:1:{e}:{e}:0:0:0:0:0:{u}:{n}\n".format(s=serviceType, e=epgId, u=uri, n=name)
+                tvlist.append((name,service))
+            tvlist = sorted(tvlist, key=lambda channel: channel[0]) # sort by name
+            with open(GSBQ, "w") as f:
+                f.write("#NAME GreekStreamTV\n")
+                for (name, service) in tvlist:
+                    f.write(service)
+            from enigma import eDVBDB
+            eDVBDB.getInstance().reloadBouquets()
+            eDVBDB.getInstance().reloadServicelist()
+            tmpMessage = _("GreekStreamTV bouquet updated successfully.")
+            self.session.open(MessageBox, tmpMessage, MessageBox.TYPE_INFO)
+        except Exception as err:
+            print "[GreekStreamTV] Exception: ", str(err)
+            tmpMessage = _("GreekStreamTV bouquet update failed.")
+            self.session.open(MessageBox, tmpMessage, MessageBox.TYPE_ERROR)
 
     def yellow(self):
-        def updateCb(answer):
-            if answer is True:
-                cmd = "{0}/update.sh {0}".format(resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV"))
-                self.session.open(Console, _("Updating stations"), [cmd], showStartStopText=False)
-        msg = _("Do you really want to update the list of stations?")
-        self.session.openWithCallback(updateCb, MessageBox, msg, MessageBox.TYPE_YESNO)
+        if path.isfile(GSBQ):
+            self.updatebq()
+        else:
+            self.createbq()
+            self["key_yellow"].setText(_("Update bouquet"))
 
     def blue(self):
         msg = _("For information or questions please refer to the www.satdreamgr.com forum.")
