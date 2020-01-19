@@ -37,7 +37,7 @@ from Components.Sources.StaticText import StaticText
 from Components.ServiceEventTracker import ServiceEventTracker
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_CURRENT_PLUGIN, SCOPE_CURRENT_SKIN
 from Tools.LoadPixmap import LoadPixmap
-from livestreamer import Livestreamer
+from streamlink import Streamlink
 
 
 PLUGIN_PATH = resolveFilename(SCOPE_PLUGINS, "Extensions/GreekStreamTV")
@@ -403,7 +403,7 @@ class GreekStreamTVList(Screen):
         else:
             self.streamFile = streamFile
 
-        self.lvstreamer = Livestreamer()
+        self.lvstreamer = Streamlink()
 
         self.streamList = []
         self.makeStreamList()
@@ -503,7 +503,7 @@ class GreekStreamTVList(Screen):
                 url = " ".join(url.split())
                 print "[GreekStreamTVList::keyOK] URL is ", url, " URI is ", uriInfo
                 channel = self.lvstreamer.resolve_url(url)
-                streams = channel.get_streams()
+                streams = channel.streams()
                 print "[GreekStreamTVList::keyOK] Streams: ", streams.keys()
                 print "[GreekStreamTVList::keyOK] Streams: ", streams.items()
                 if len(streams) == 3 and "best" in streams and "worst" in streams:
