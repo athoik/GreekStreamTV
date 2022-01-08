@@ -23,10 +23,10 @@ livestreamer.set_loglevel("debug")
 channel = livestreamer.resolve_url(url)
 streams = channel.get_streams()
 
-print 'Streams:', streams.keys()
+print('Streams: %s' % list(streams.keys()))
 
 stream = streams["best"]
-print stream
+print(stream)
 
 fd = stream.open()
 
@@ -35,7 +35,7 @@ while True:
     if len(data) == 0:
         break
     else:
-        print "Got Data! Livestreamer Works!"
+        print("Got Data! Livestreamer Works!")
         break
 
 # All streams are not guaranteed to support .close()

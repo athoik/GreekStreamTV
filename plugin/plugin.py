@@ -1,5 +1,5 @@
 from . import _
-from stream import GreekStreamTVList
+from .stream import GreekStreamTVList
 from Plugins.Plugin import PluginDescriptor
 from Components.MenuList import MenuList
 from Screens.Screen import Screen
@@ -65,7 +65,7 @@ class GSMenu(Screen):
                 try:
                     self.session.open(GreekStreamTVList, streamFile=choice)
                 except Exception as err:
-                    print "[GreekStreamTV] Exception: ", str(err)
+                    print("[GreekStreamTV] Exception: %s" % err)
                     import traceback
                     traceback.print_exc()
                     msg = _("Error loading plugin!")
@@ -116,7 +116,7 @@ class GSMenu(Screen):
             tmpMessage = _("GreekStreamTV bouquet updated successfully.")
             self.session.open(MessageBox, tmpMessage, MessageBox.TYPE_INFO)
         except Exception as err:
-            print "[GreekStreamTV] Exception: ", str(err)
+            print("[GreekStreamTV] Exception: %s" % err)
             tmpMessage = _("GreekStreamTV bouquet update failed.")
             self.session.open(MessageBox, tmpMessage, MessageBox.TYPE_ERROR)
 
