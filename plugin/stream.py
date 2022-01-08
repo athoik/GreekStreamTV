@@ -15,7 +15,10 @@ import os
 import ssl
 from sys import path
 from time import sleep
-from thread import start_new_thread
+try:
+    from _thread import start_new_thread
+except ImportError:
+    from thread import start_new_thread
 from xml.etree.cElementTree import ElementTree
 
 from . import _
@@ -56,7 +59,7 @@ class SelectQuality(Screen):
         self.setTitle(_("Select quality"))
         self["info"] = Label("...")
         self.selectedFunc = selectedFunc
-        menu = [ (str(sn[0]), sn[1]) for sn in streams.items() ]
+        menu = [ (str(sn[0]), sn[1]) for sn in list(streams.items()) ]
         self["menu"] = MenuList(menu, enableWrapAround)
         self["actions"] = ActionMap(["OkCancelActions"],
         {
@@ -180,33 +183,33 @@ class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
     def __evAudioDecodeError(self):
         currPlay = self.session.nav.getCurrentService()
         sAudioType = currPlay.info().getInfoString(iServiceInformation.sUser + 10)
-        print "[__evAudioDecodeError] audio-codec %s can't be decoded by hardware" % (sAudioType)
+        print("[__evAudioDecodeError] audio-codec %s can't be decoded by hardware" % (sAudioType))
         self.session.open(MessageBox, _("This receiver can't decode %s streams!") % sAudioType, type=MessageBox.TYPE_INFO, timeout=10)
 
     def __evVideoDecodeError(self):
         currPlay = self.session.nav.getCurrentService()
         sVideoType = currPlay.info().getInfoString(iServiceInformation.sVideoType)
-        print "[__evVideoDecodeError] video-codec %s can't be decoded by hardware" % (sVideoType)
+        print("[__evVideoDecodeError] video-codec %s can't be decoded by hardware" % (sVideoType))
         self.session.open(MessageBox, _("This receiver can't decode %s streams!") % sVideoType, type=MessageBox.TYPE_INFO, timeout=10)
 
     def __evPluginError(self):
         currPlay = self.session.nav.getCurrentService()
         message = currPlay.info().getInfoString(iServiceInformation.sUser + 12)
-        print "[__evPluginError]" , message
+        print("[__evPluginError]" , message)
         self.session.open(MessageBox, message, type=MessageBox.TYPE_INFO, timeout=10)
 
     def __setHideTimer(self):
         self.hidetimer.start(5000)
 
     def doExit(self):
-        print "[GreekStreamTVPlayer::doExit]"
+        print("[GreekStreamTVPlayer::doExit]")
         self.stopPlayer()
         self.close()
 
     def setSeekState(self, wantstate):
         service = self.session.nav.getCurrentService()
         if service is None:
-            print "[GreekStreamTV:: ::setSeekState] No Service found"
+            print("[GreekStreamTV:: ::setSeekState] No Service found")
             return
 
         pauseable = service.pause()
@@ -244,7 +247,7 @@ class GreekStreamTVPlayer(Screen, InfoBarAudioSelection, InfoBarNotifications):
             self.__setHideTimer()
 
     def playpauseService(self):
-        print "[GreekStreamTVPlayer::playpauseService] State ", self.state
+        print("[GreekStreamTVPlayer::playpauseService] State ", self.state)
         if self.state == self.PLAYER_PLAYING:
             self.setSeekState(self.PLAYER_PAUSED)
         elif self.state == self.PLAYER_PAUSED:
@@ -296,7 +299,7 @@ class StreamList(MenuList):
 
     def applySkin(self, desktop, parent):
         def warningWrongSkinParameter(string):
-            print "[StreamList] wrong '%s' skin parameter" % string
+            print("[StreamList] wrong '%s' skin parameter" % string)
         def itemHeight(value):
             self.itemHeight = int(value)
         def serviceNameFont(value):
@@ -304,37 +307,37 @@ class StreamList(MenuList):
         def serviceUrlFont(value):
             self.serviceUrlFont = parseFont(value, ((1,1),(1,1)))
         def serviceNamePosition(value):
-            pos = map(int, value.split(','))
+            pos = list(map(int, value.split(',')))
             if len(pos) == 2:
                 self.serviceNamePosition = pos
             else:
                 warningWrongSkinParameter(attrib)
         def serviceNameSize(value):
-            size = map(int, value.split(','))
+            size = list(map(int, value.split(',')))
             if len(size) == 2:
                 self.serviceNameSize = size
             else:
                 warningWrongSkinParameter(attrib)
         def serviceUrlPosition(value):
-            pos = map(int, value.split(','))
+            pos = list(map(int, value.split(',')))
             if len(pos) == 2:
                 self.serviceUrlPosition = pos
             else:
                 warningWrongSkinParameter(attrib)
         def serviceUrlSize(value):
-            size = map(int, value.split(','))
+            size = list(map(int, value.split(',')))
             if len(size) == 2:
                 self.serviceUrlSize = size
             else:
                 warningWrongSkinParameter(attrib)
         def iconPosition(value):
-            pos = map(int, value.split(','))
+            pos = list(map(int, value.split(',')))
             if len(pos) == 2:
                 self.iconPosition = pos
             else:
                 warningWrongSkinParameter(attrib)
         def iconSize(value):
-            size = map(int, value.split(','))
+            size = list(map(int, value.split(',')))
             if len(size) == 2:
                 self.iconSize = size
             else:
@@ -460,7 +463,7 @@ class GreekStreamTVList(Screen):
         self["info"].setText(tmpName)
 
     def keyOK(self):
-        print "[GreekStreamTVList::keyOK]"
+        print("[GreekStreamTVList::keyOK]")
         if self.keyLocked:
             return
 
@@ -488,9 +491,9 @@ class GreekStreamTVList(Screen):
 
         if protocol == "rtmp":
             url += " "
-            url += " ".join(["%s=%s" % (key, value) for (key, value) in uriInfo.items() if key != "URL"])
+            url += " ".join(["%s=%s" % (key, value) for (key, value) in list(uriInfo.items()) if key != "URL"])
             url = " ".join(url.split())
-            print "[GreekStreamTVList::keyOK] URL is ", url, " URI is ", uriInfo
+            print("[GreekStreamTVList::keyOK] URL is ", url, " URI is ", uriInfo)
             self.doStreamAction(url, serviceType, bufferSize)
         elif protocol in ("rtsp", "http"):
             self.doStreamAction(url, serviceType, bufferSize)
@@ -498,12 +501,12 @@ class GreekStreamTVList(Screen):
             streams = None
             try:
                 url += " "
-                url += " ".join(["%s=%s" % (key, value) for (key, value) in uriInfo.items() if key != "URL"])
+                url += " ".join(["%s=%s" % (key, value) for (key, value) in list(uriInfo.items()) if key != "URL"])
                 url = " ".join(url.split())
-                print "[GreekStreamTVList::keyOK] URL is ", url, " URI is ", uriInfo
+                print("[GreekStreamTVList::keyOK] URL is ", url, " URI is ", uriInfo)
                 streams = self.lvstreamer.streams(url)
-                print "[GreekStreamTVList::keyOK] Streams: ", streams.keys()
-                print "[GreekStreamTVList::keyOK] Streams: ", streams.items()
+                print("[GreekStreamTVList::keyOK] Streams: ", list(streams.keys()))
+                print("[GreekStreamTVList::keyOK] Streams: ", list(streams.items()))
                 if len(streams) == 3 and "best" in streams and "worst" in streams:
                     self.streamPreBuffer(streams["best"])
                 elif len(streams) == 0:
@@ -511,11 +514,11 @@ class GreekStreamTVList(Screen):
                 else:
                     self.qsel = self.session.openWithCallback(self.QualitySelClosed, SelectQuality, streams, self.streamPreBuffer)
             except Exception as err:
-                print "[GreekStreamTVList::keyOK::Exception] Error: ", err
+                print("[GreekStreamTVList::keyOK::Exception] Error: %s" % err)
                 tmpMessage = _("An error occured: ") + str(err)[:200] + "..."
                 self.session.openWithCallback(self.stopPlayer, MessageBox, tmpMessage, type=MessageBox.TYPE_ERROR, timeout=10)
         else:
-            print "[GreekStreamTVList::keyOK] Unknown Protocol: ", protocol
+            print("[GreekStreamTVList::keyOK] Unknown Protocol: ", protocol)
             tmpMessage = _("Unknown protocol: ") + protocol
             self.session.openWithCallback(self.stopPlayer, MessageBox, tmpMessage, type=MessageBox.TYPE_WARNING, timeout=10)
 
@@ -538,12 +541,12 @@ class GreekStreamTVList(Screen):
         except Exception as err:
             if fd and hasattr(fd, "close"):
                 fd.close()
-            print "[GreekStreamTVList::streamPreBuffer::Exception] Error: ", err
+            print("[GreekStreamTVList::streamPreBuffer::Exception] Error: %s" % err)
             tmpMessage = _("An error occured while buffering: ") + str(err)[:200] + "..."
             self.session.openWithCallback(self.stopPlayer, MessageBox, tmpMessage, type=MessageBox.TYPE_ERROR, timeout=10)
 
     def streamCopy(self, fd, prebuffer):
-        print "[GreekStreamTVList::streamCopy]"
+        print("[GreekStreamTVList::streamCopy]")
         if os.access(self.streamPipe, os.F_OK):
             os.remove(self.streamPipe)
         os.mkfifo(self.streamPipe)
@@ -555,20 +558,20 @@ class GreekStreamTVList(Screen):
                 if len(data) == 0:
                     break
                 self.pd.write(data)
-            print "[GreekStreamTVList:streamCopy] playerStoped"
+            print("[GreekStreamTVList:streamCopy] playerStoped")
             self.pd.close()
             if hasattr(fd, "close"):
                 fd.close()
             fd = None
         except Exception as err:
-            print "[GreekStreamTVList::streamCopy] Exception: ", err
+            print("[GreekStreamTVList::streamCopy] Exception: %s" % err)
         finally:
             self.playerStoped = True
             if fd and hasattr(fd, "close"):
                 fd.close()
 
     def LivestreamerStop(self):
-        print "[GreekStreamTVList::LivestreamStop]"
+        print("[GreekStreamTVList::LivestreamStop]")
         self.showName()
         self.keyLocked = False
         self.playerStoped = True
@@ -614,21 +617,21 @@ class GreekStreamTVList(Screen):
                                     chIcon=str(streamInfo.get("icon")))
 
     def stopPlayer(self, params=None):
-        print "[GreekStreamTV::stopPlayer]"
+        print("[GreekStreamTV::stopPlayer]")
         if params is None or isinstance(params, bool):
             self.playerStoped = True
             self.LivestreamerStop()
             return
 
     def onStreamFinished(self):
-        print "[GreekStreamTV::onStreamFinished]"
+        print("[GreekStreamTV::onStreamFinished]")
         self.LivestreamerStop()
         self.session.nav.playService(self.beforeService)
-        print "[GreekStreamTV::onStreamFinished] player done!!"
+        print("[GreekStreamTV::onStreamFinished] player done!!")
 
     def makeStreamList(self):
         try: streamDB = StreamURIParser(self.streamFile).parseStreamList()
         except Exception as err:
-            print "[GreekStreamTV::makeStreamList] Error: ", err
+            print("[GreekStreamTV::makeStreamList] Error: %s" % err)
             streamDB = []
         self.streamList = [ (x.get("name"), x) for x in streamDB ]
