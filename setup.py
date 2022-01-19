@@ -7,6 +7,6 @@ setup (name = 'enigma2-plugin-extensions-greekstreamtv',
        description = 'Watch live stream TV from Greece',
        package_dir = {pkg: 'plugin'},
        packages = [pkg],
-       package_data = {pkg: ['icons/*.png', 'plugin.png', 'stream.xml', 'create.sh', 'update.sh', 'xml/*.xml']},
+       package_data = {pkg: ['icons/*.png', 'plugin.png', 'stream.xml', 'create.sh', 'update.sh', 'xml/*.xml', 'locale/*/LC_MESSAGES/*.mo']},
        cmdclass = setup_translate.cmdclass,
 )
